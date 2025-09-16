@@ -1,0 +1,21 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:tbank/src/features/auth/presentation/pages/auth_page.dart';
+import 'package:tbank/src/features/edit_event/presentation/pages/edit_event_page.dart';
+import 'package:tbank/src/features/event/presentation/pages/event_page.dart';
+import 'package:tbank/src/features/event_list/presentation/pages/event_list_pages.dart';
+
+part 'router.gr.dart';
+
+@AutoRouterConfig(replaceInRouteName: 'Screen|Page,Route')
+class AppRouter extends RootStackRouter {
+  @override
+  RouteType get defaultRouteType => const RouteType.adaptive();
+
+  @override
+  List<AutoRoute> get routes => [
+    AutoRoute(page: AuthRoute.page, initial: true),
+    AutoRoute(page: EventListRoute.page),
+    AutoRoute(page: EventRoute.page),
+    AutoRoute(page: EditEventRoute.page),
+  ];
+}

@@ -1,0 +1,6 @@
+{
+    "event_list": "Список событий",
+    "@event_list": {
+        "description": "The name of event list page"
+    }
+}
