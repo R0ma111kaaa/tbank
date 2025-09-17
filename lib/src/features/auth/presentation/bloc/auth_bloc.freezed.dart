@@ -55,11 +55,13 @@ extension AuthEventPatterns on AuthEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadPage value)?  loadPage,TResult Function( GetUserData value)?  getUserData,TResult Function( Reload value)?  reload,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Started() when started != null:
-return started(_that);case _:
+case LoadPage() when loadPage != null:
+return loadPage(_that);case GetUserData() when getUserData != null:
+return getUserData(_that);case Reload() when reload != null:
+return reload(_that);case _:
   return orElse();
 
 }
@@ -77,11 +79,13 @@ return started(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadPage value)  loadPage,required TResult Function( GetUserData value)  getUserData,required TResult Function( Reload value)  reload,}){
 final _that = this;
 switch (_that) {
-case _Started():
-return started(_that);case _:
+case LoadPage():
+return loadPage(_that);case GetUserData():
+return getUserData(_that);case Reload():
+return reload(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +102,13 @@ return started(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadPage value)?  loadPage,TResult? Function( GetUserData value)?  getUserData,TResult? Function( Reload value)?  reload,}){
 final _that = this;
 switch (_that) {
-case _Started() when started != null:
-return started(_that);case _:
+case LoadPage() when loadPage != null:
+return loadPage(_that);case GetUserData() when getUserData != null:
+return getUserData(_that);case Reload() when reload != null:
+return reload(_that);case _:
   return null;
 
 }
@@ -119,10 +125,12 @@ return started(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadPage,TResult Function()?  getUserData,TResult Function()?  reload,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Started() when started != null:
-return started();case _:
+case LoadPage() when loadPage != null:
+return loadPage();case GetUserData() when getUserData != null:
+return getUserData();case Reload() when reload != null:
+return reload();case _:
   return orElse();
 
 }
@@ -140,10 +148,12 @@ return started();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadPage,required TResult Function()  getUserData,required TResult Function()  reload,}) {final _that = this;
 switch (_that) {
-case _Started():
-return started();case _:
+case LoadPage():
+return loadPage();case GetUserData():
+return getUserData();case Reload():
+return reload();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +170,12 @@ return started();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadPage,TResult? Function()?  getUserData,TResult? Function()?  reload,}) {final _that = this;
 switch (_that) {
-case _Started() when started != null:
-return started();case _:
+case LoadPage() when loadPage != null:
+return loadPage();case GetUserData() when getUserData != null:
+return getUserData();case Reload() when reload != null:
+return reload();case _:
   return null;
 
 }
@@ -174,8 +186,8 @@ return started();case _:
 /// @nodoc
 
 
-class _Started implements AuthEvent {
-  const _Started();
+class LoadPage implements AuthEvent {
+  const LoadPage();
   
 
 
@@ -185,7 +197,7 @@ class _Started implements AuthEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Started);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadPage);
 }
 
 
@@ -194,7 +206,71 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthEvent.started()';
+  return 'AuthEvent.loadPage()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class GetUserData implements AuthEvent {
+  const GetUserData();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetUserData);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AuthEvent.getUserData()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Reload implements AuthEvent {
+  const Reload();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Reload);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AuthEvent.reload()';
 }
 
 
@@ -247,11 +323,13 @@ extension AuthStatePatterns on AuthState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthInitial value)?  initial,TResult Function( AuthPageLoaded value)?  pageLoaded,TResult Function( Authorized value)?  authorized,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _:
+case AuthInitial() when initial != null:
+return initial(_that);case AuthPageLoaded() when pageLoaded != null:
+return pageLoaded(_that);case Authorized() when authorized != null:
+return authorized(_that);case _:
   return orElse();
 
 }
@@ -269,11 +347,13 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthInitial value)  initial,required TResult Function( AuthPageLoaded value)  pageLoaded,required TResult Function( Authorized value)  authorized,}){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _:
+case AuthInitial():
+return initial(_that);case AuthPageLoaded():
+return pageLoaded(_that);case Authorized():
+return authorized(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -290,11 +370,13 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthInitial value)?  initial,TResult? Function( AuthPageLoaded value)?  pageLoaded,TResult? Function( Authorized value)?  authorized,}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _:
+case AuthInitial() when initial != null:
+return initial(_that);case AuthPageLoaded() when pageLoaded != null:
+return pageLoaded(_that);case Authorized() when authorized != null:
+return authorized(_that);case _:
   return null;
 
 }
@@ -311,10 +393,12 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  pageLoaded,TResult Function( UserEntity user)?  authorized,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _:
+case AuthInitial() when initial != null:
+return initial();case AuthPageLoaded() when pageLoaded != null:
+return pageLoaded();case Authorized() when authorized != null:
+return authorized(_that.user);case _:
   return orElse();
 
 }
@@ -332,10 +416,12 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  pageLoaded,required TResult Function( UserEntity user)  authorized,}) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _:
+case AuthInitial():
+return initial();case AuthPageLoaded():
+return pageLoaded();case Authorized():
+return authorized(_that.user);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -352,10 +438,12 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  pageLoaded,TResult? Function( UserEntity user)?  authorized,}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _:
+case AuthInitial() when initial != null:
+return initial();case AuthPageLoaded() when pageLoaded != null:
+return pageLoaded();case Authorized() when authorized != null:
+return authorized(_that.user);case _:
   return null;
 
 }
@@ -366,8 +454,8 @@ return initial();case _:
 /// @nodoc
 
 
-class _Initial implements AuthState {
-  const _Initial();
+class AuthInitial implements AuthState {
+  const AuthInitial();
   
 
 
@@ -377,7 +465,7 @@ class _Initial implements AuthState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthInitial);
 }
 
 
@@ -394,5 +482,112 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class AuthPageLoaded implements AuthState {
+  const AuthPageLoaded();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthPageLoaded);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AuthState.pageLoaded()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Authorized implements AuthState {
+  const Authorized({required this.user});
+  
+
+ final  UserEntity user;
+
+/// Create a copy of AuthState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AuthorizedCopyWith<Authorized> get copyWith => _$AuthorizedCopyWithImpl<Authorized>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Authorized&&(identical(other.user, user) || other.user == user));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,user);
+
+@override
+String toString() {
+  return 'AuthState.authorized(user: $user)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AuthorizedCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+  factory $AuthorizedCopyWith(Authorized value, $Res Function(Authorized) _then) = _$AuthorizedCopyWithImpl;
+@useResult
+$Res call({
+ UserEntity user
+});
+
+
+$UserEntityCopyWith<$Res> get user;
+
+}
+/// @nodoc
+class _$AuthorizedCopyWithImpl<$Res>
+    implements $AuthorizedCopyWith<$Res> {
+  _$AuthorizedCopyWithImpl(this._self, this._then);
+
+  final Authorized _self;
+  final $Res Function(Authorized) _then;
+
+/// Create a copy of AuthState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+  return _then(Authorized(
+user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as UserEntity,
+  ));
+}
+
+/// Create a copy of AuthState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserEntityCopyWith<$Res> get user {
+  
+  return $UserEntityCopyWith<$Res>(_self.user, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}
+}
 
 // dart format on

@@ -2,5 +2,34 @@
     "event_list": "Список событий",
     "@event_list": {
         "description": "The name of event list page"
+    },
+    "add_event_button_text": "Добавить событие",
+    "@add_event_button_text": {
+        "description": "The add event button text"
+    },
+    "auth_page_loading": "Загружаем страницу авторизации",
+    "@auth_page_loading": {
+        "description": "Loading auth page hint"
+    },
+    "current_events": "Текущие",
+    "@current_events": {
+        "description": "current events"
+        
+    },
+    "past_events": "Прошедшие",
+    "@past_events": {
+        "description": "past events"
+    },
+    "participants1": "участник",
+    "@participants1": {
+        "description": "participants1"
+    },
+    "participants2": "участника",
+    "@participants2": {
+        "description": "participants2"
+    },
+    "participants5": "участников",
+    "@participants5": {
+        "description": "participants5"
     }
 }

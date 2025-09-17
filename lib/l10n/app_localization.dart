@@ -99,6 +99,48 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Список событий'**
   String get event_list;
+
+  /// The add event button text
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить событие'**
+  String get add_event_button_text;
+
+  /// Loading auth page hint
+  ///
+  /// In ru, this message translates to:
+  /// **'Загружаем страницу авторизации'**
+  String get auth_page_loading;
+
+  /// current events
+  ///
+  /// In ru, this message translates to:
+  /// **'Текущие'**
+  String get current_events;
+
+  /// past events
+  ///
+  /// In ru, this message translates to:
+  /// **'Прошедшие'**
+  String get past_events;
+
+  /// participants1
+  ///
+  /// In ru, this message translates to:
+  /// **'участник'**
+  String get participants1;
+
+  /// participants2
+  ///
+  /// In ru, this message translates to:
+  /// **'участника'**
+  String get participants2;
+
+  /// participants5
+  ///
+  /// In ru, this message translates to:
+  /// **'участников'**
+  String get participants5;
 }
 
 class _AppLocalizationsDelegate

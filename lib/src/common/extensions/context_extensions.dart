@@ -7,4 +7,5 @@ extension ContextExtensions on BuildContext {
   ThemeColors get colorExt => Theme.of(this).extension<ThemeColors>()!;
   ThemeTypography get textExt => Theme.of(this).extension<ThemeTypography>()!;
   AppLocalizations get tr => AppLocalizations.of(this)!;
+  MediaQueryData get mq => MediaQuery.of(this);
 }

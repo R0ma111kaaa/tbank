@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:tbank/src/features/auth/presentation/pages/auth_page.dart';
 import 'package:tbank/src/features/edit_event/presentation/pages/edit_event_page.dart';
-import 'package:tbank/src/features/event/presentation/pages/event_page.dart';
-import 'package:tbank/src/features/event_list/presentation/pages/event_list_pages.dart';
+import 'package:tbank/src/features/event_data/presentation/pages/event_page.dart';
+import 'package:tbank/src/features/event_list/presentation/pages/event_list_page.dart';
 
 part 'router.gr.dart';
 

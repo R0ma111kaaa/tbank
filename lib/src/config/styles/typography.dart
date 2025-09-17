@@ -5,10 +5,20 @@ abstract class AppTypography {
 
   static const montserrat = 'montserrat';
 
+  static const montserratLight12 = TextStyle(
+    fontWeight: FontWeight.w300,
+    fontFamily: montserrat,
+    fontSize: 12,
+  );
   static const montserratRegular16 = TextStyle(
     fontWeight: FontWeight.w400,
     fontFamily: montserrat,
     fontSize: 16,
+  );
+  static const montserratRegular18 = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontFamily: montserrat,
+    fontSize: 18,
   );
 
   static const montserratMedium12 = TextStyle(
@@ -17,6 +27,17 @@ abstract class AppTypography {
     fontSize: 12,
   );
 
+  static const montserratMedium14 = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontFamily: montserrat,
+    fontSize: 14,
+  );
+
+  static const montserratSemiBold12 = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontFamily: montserrat,
+    fontSize: 12,
+  );
   static const montserratSemiBold16 = TextStyle(
     fontWeight: FontWeight.w600,
     fontFamily: montserrat,
