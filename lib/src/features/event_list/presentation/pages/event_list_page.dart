@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tbank/di/di.dart';
 import 'package:tbank/src/common/extensions/context_extensions.dart';
 import 'package:tbank/src/common/utils/dotenv_util.dart';
+import 'package:tbank/src/common/widgets/base_progress_indicator.dart';
 import 'package:tbank/src/common/widgets/base_separator.dart';
+import 'package:tbank/src/features/edit_event/domain/entities/event/event_entity.dart';
 import 'package:tbank/src/features/event_list/presentation/widgets/card_margin.dart';
 import 'package:tbank/src/features/event_list/presentation/widgets/event_card.dart';
 import 'package:tbank/src/config/constants/constants.dart';
@@ -20,7 +22,8 @@ class EventListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EventListBloc(),
+      create: (context) =>
+          getIt<EventListBloc>()..add(const EventListEvent.loadData()),
       child: const EventListView(),
     );
   }
@@ -31,6 +34,7 @@ class EventListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final eventListBloc = context.read<EventListBloc>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -53,110 +57,129 @@ class EventListView extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsetsGeometry.symmetric(
-            horizontal: AppDimensions.defaultPadding,
-          ),
-          child: Column(
-            children: [
-              const SmoothTabSwitcher(),
-              const SizedBox(height: AppDimensions.defaultSpacing),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BaseSeparator(text: context.tr.upcoming_events),
-
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 1,
-                        itemBuilder: (context, index) => CardMargin(
-                          cardWidget: EventCard(
-                            name: 'Рыбалка',
-                            startDate: DateTime.utc(2025, 1, 3),
-                            endDate: DateTime.now(),
-                            participants: 17,
-                            spentMoney: 19860,
-                            totalMoney: 12000,
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: AppDimensions.defaultSpacing),
-                      BaseSeparator(text: context.tr.current_events),
-
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 2,
-                        itemBuilder: (context, index) => CardMargin(
-                          cardWidget: EventCard(
-                            name: 'Выходные',
-                            startDate: DateTime.utc(2025, 1, 3),
-                            endDate: DateTime.now(),
-                            participants: 17,
-                            spentMoney: 19860,
-                            totalMoney: 12000,
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: AppDimensions.defaultSpacing),
-                      BaseSeparator(text: context.tr.past_events),
-
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 30,
-                        itemBuilder: (context, index) => CardMargin(
-                          cardWidget: EventCard(
-                            name: 'Крым',
-                            startDate: DateTime.utc(2024, 12, 20),
-                            endDate: DateTime.utc(2024, 12, 21),
-                            participants: 10,
-                            spentMoney: 5000,
-                            totalMoney: 3000,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+      body: BlocBuilder<EventListBloc, EventListState>(
+        builder: (context, state) {
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsetsGeometry.symmetric(
+                horizontal: AppDimensions.defaultPadding,
               ),
+              child: Column(
+                children: [
+                  SmoothTabSwitcher(
+                    selectedIndex: state.maybeMap(
+                      loaded: (value) => value.menuIndex,
+                      orElse: () => 0,
+                    ),
+                    onTap: () => eventListBloc.add(
+                      const EventListEvent.changeMenuIndex(),
+                    ),
+                  ),
+                  const SizedBox(height: AppDimensions.defaultSpacing),
+                  Expanded(
+                    child: state.maybeMap(
+                      loading: (loadingState) {
+                        return PrimaryProgressIndicator(
+                          text: context.tr.load_event_list_title,
+                        );
+                      },
+                      loaded: (loadedState) {
+                        final eventListsObject = loadedState.menuIndex == 0
+                            ? loadedState.ownedEvents
+                            : loadedState.participantingEvents;
+                        final upcomingEvents = eventListsObject['upcoming']!;
+                        final currentEvents = eventListsObject['current']!;
+                        final pastEvents = eventListsObject['past']!;
+                        return SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BaseSeparator(text: context.tr.upcoming_events),
+                              EventListViewBuilder(events: upcomingEvents),
 
-              ElevatedButton(
-                style: ButtonStyle(
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(
-                        AppDimensions.defaultBorderRadius,
+                              const SizedBox(
+                                height: AppDimensions.defaultSpacing,
+                              ),
+                              BaseSeparator(text: context.tr.current_events),
+
+                              EventListViewBuilder(events: currentEvents),
+
+                              const SizedBox(
+                                height: AppDimensions.defaultSpacing,
+                              ),
+                              BaseSeparator(text: context.tr.past_events),
+
+                              EventListViewBuilder(events: pastEvents),
+                            ],
+                          ),
+                        );
+                      },
+                      orElse: () {
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                  ),
+
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      shape: WidgetStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(
+                            AppDimensions.defaultBorderRadius,
+                          ),
+                        ),
+                      ),
+                      minimumSize: const WidgetStatePropertyAll(
+                        Size(
+                          double.infinity,
+                          AppDimensions.elevatedButtonMinHeight,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      context.router.push(const EditEventRoute());
+                    },
+                    child: Text(
+                      context.tr.add_event_button_text,
+                      style: context.textExt.montserratExtraBold20.copyWith(
+                        color: context.colorExt.secondaryBackgroundColor,
                       ),
                     ),
                   ),
-                  minimumSize: const WidgetStatePropertyAll(
-                    Size(
-                      double.infinity,
-                      AppDimensions.elevatedButtonMinHeight,
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  context.router.push(const EditEventRoute());
-                },
-                child: Text(
-                  context.tr.add_event_button_text,
-                  style: context.textExt.montserratExtraBold20.copyWith(
-                    color: context.colorExt.secondaryBackgroundColor,
-                  ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
+    );
+  }
+}
+
+class EventListViewBuilder extends StatelessWidget {
+  const EventListViewBuilder({required this.events, super.key});
+
+  final List<EventEntity> events;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: events.length,
+      itemBuilder: (context, index) {
+        final event = events[index];
+        return CardMargin(
+          cardWidget: EventCard(
+            name: event.tripName,
+            startDate: event.plannedDate,
+            endDate: event.exitDate,
+            participants: event.participantCount,
+            spentMoney: event.totalSpent,
+            totalMoney: event.totalPlanned,
+          ),
+        );
+      },
     );
   }
 }

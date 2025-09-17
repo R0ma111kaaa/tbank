@@ -89,6 +89,10 @@
     "@event": {
         "description": "event"
     },
+    "load_event_list_title": "Грузим ваши события",
+    "@load_event_list_title": {
+        "description": "load your events title"
+    },
     "rubles": "{expense}₽",
     "@rubles": {
         "description": "add category button title",

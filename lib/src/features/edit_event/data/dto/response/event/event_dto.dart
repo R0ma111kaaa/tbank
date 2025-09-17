@@ -5,14 +5,13 @@ part 'event_dto.g.dart';
 @JsonSerializable()
 class EventDto {
   const EventDto({
-    required this.expense,
+    required this.tripId,
     required this.tripName,
     required this.plannedDate,
     required this.exitDate,
-    required this.userId,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.tripId,
+    required this.participantCount,
+    required this.totalSpent,
+    required this.totalPlanned,
   });
 
   @JsonKey(name: 'trip_id')
@@ -27,18 +26,17 @@ class EventDto {
   @JsonKey(name: 'exit_date')
   final String? exitDate;
 
-  @JsonKey(name: 'user_id')
-  final String userId;
+  @JsonKey(name: 'participant_count')
+  final int participantCount;
 
-  @JsonKey(name: 'expense')
-  final double expense;
+  @JsonKey(name: 'total_spent')
+  final double totalSpent;
 
-  @JsonKey(name: 'created_at')
-  final String createdAt;
-
-  @JsonKey(name: 'updated_at')
-  final String updatedAt;
+  @JsonKey(name: 'total_planned')
+  final double totalPlanned;
 
   factory EventDto.fromJson(Map<String, dynamic> json) =>
       _$EventDtoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EventDtoToJson(this);
 }

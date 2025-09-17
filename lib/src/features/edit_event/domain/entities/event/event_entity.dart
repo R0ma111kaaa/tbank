@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tbank/src/features/edit_event/data/dto/response/event_dto.dart';
+import 'package:tbank/src/features/edit_event/data/dto/response/event/event_dto.dart';
 
 part 'event_entity.freezed.dart';
 
@@ -8,12 +8,11 @@ abstract class EventEntity with _$EventEntity {
   const factory EventEntity({
     required String tripId,
     required String? tripName,
-    required String? plannedDate,
-    required String? exitDate,
-    required String userId,
-    required double expense,
-    required String createdAt,
-    required String updatedAt,
+    required DateTime? plannedDate,
+    required DateTime? exitDate,
+    required int participantCount,
+    required double totalSpent,
+    required double totalPlanned,
   }) = _EventEntity;
 
   const EventEntity._();
@@ -21,11 +20,12 @@ abstract class EventEntity with _$EventEntity {
   factory EventEntity.fromDto(EventDto dto) => EventEntity(
     tripId: dto.tripId,
     tripName: dto.tripName,
-    plannedDate: dto.plannedDate,
-    userId: dto.userId,
-    exitDate: dto.exitDate,
-    expense: dto.expense,
-    createdAt: dto.createdAt,
-    updatedAt: dto.updatedAt,
+    plannedDate: dto.plannedDate != null
+        ? DateTime.tryParse(dto.plannedDate!)
+        : null,
+    exitDate: dto.exitDate != null ? DateTime.tryParse(dto.exitDate!) : null,
+    participantCount: dto.participantCount,
+    totalSpent: dto.totalSpent,
+    totalPlanned: dto.totalPlanned,
   );
 }

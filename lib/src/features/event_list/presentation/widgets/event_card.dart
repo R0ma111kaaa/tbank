@@ -6,9 +6,9 @@ import 'package:tbank/src/common/widgets/fase_text.dart';
 import 'package:tbank/src/config/styles/dimensions.dart';
 
 class EventCard extends StatelessWidget {
-  final String name;
-  final DateTime startDate;
-  final DateTime endDate;
+  final String? name;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final int participants;
   final double spentMoney;
   final double totalMoney;
@@ -23,9 +23,12 @@ class EventCard extends StatelessWidget {
     super.key,
   });
 
-  String get formattedDates {
+  String get _formattedDates {
     final formatter = DateFormat('dd.MM.yy');
-    return '${formatter.format(startDate)}-${formatter.format(endDate)}';
+    if (startDate == null || endDate == null) {
+      return '??.??.??-??.??.??';
+    }
+    return '${formatter.format(startDate!)}-${formatter.format(endDate!)}';
   }
 
   @override
@@ -40,10 +43,13 @@ class EventCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeText(name, style: context.textExt.montserratSemiBold16),
+                  FadeText(
+                    name ?? '',
+                    style: context.textExt.montserratSemiBold16,
+                  ),
                   const SizedBox(height: AppDimensions.eventCardSeparation),
                   FadeText(
-                    formattedDates,
+                    _formattedDates,
                     style: context.textExt.montserratLight12,
                   ),
                 ],

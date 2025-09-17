@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:tbank/src/features/edit_event/data/dto/response/event_dto.dart';
+import 'package:tbank/src/features/edit_event/data/dto/response/event/event_dto.dart';
+import 'package:tbank/src/features/edit_event/data/dto/response/list_event/list_event_dto.dart';
 
 part 'event_api.g.dart';
 
@@ -34,4 +35,7 @@ abstract class EventApi {
     @Path('trip_id') String tripId,
     @Path('user_id') String userId,
   );
+
+  @GET('/trips/my')
+  Future<ListEventDto> getEvents();
 }

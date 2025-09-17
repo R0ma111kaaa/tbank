@@ -7,14 +7,13 @@ part of 'event_dto.dart';
 // **************************************************************************
 
 EventDto _$EventDtoFromJson(Map<String, dynamic> json) => EventDto(
-  expense: (json['expense'] as num).toDouble(),
+  tripId: json['trip_id'] as String,
   tripName: json['trip_name'] as String?,
   plannedDate: json['planned_date'] as String?,
   exitDate: json['exit_date'] as String?,
-  userId: json['user_id'] as String,
-  createdAt: json['created_at'] as String,
-  updatedAt: json['updated_at'] as String,
-  tripId: json['trip_id'] as String,
+  participantCount: (json['participant_count'] as num).toInt(),
+  totalSpent: (json['total_spent'] as num).toDouble(),
+  totalPlanned: (json['total_planned'] as num).toDouble(),
 );
 
 Map<String, dynamic> _$EventDtoToJson(EventDto instance) => <String, dynamic>{
@@ -22,8 +21,7 @@ Map<String, dynamic> _$EventDtoToJson(EventDto instance) => <String, dynamic>{
   'trip_name': instance.tripName,
   'planned_date': instance.plannedDate,
   'exit_date': instance.exitDate,
-  'user_id': instance.userId,
-  'expense': instance.expense,
-  'created_at': instance.createdAt,
-  'updated_at': instance.updatedAt,
+  'participant_count': instance.participantCount,
+  'total_spent': instance.totalSpent,
+  'total_planned': instance.totalPlanned,
 };

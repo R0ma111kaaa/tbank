@@ -1,6 +1,7 @@
 import 'package:tbank/src/features/edit_event/data/datasources/api/event_api.dart';
 import 'package:tbank/src/features/edit_event/data/dto/request/update_event_dto.dart';
-import 'package:tbank/src/features/edit_event/data/dto/response/event_dto.dart';
+import 'package:tbank/src/features/edit_event/data/dto/response/event/event_dto.dart';
+import 'package:tbank/src/features/edit_event/data/dto/response/list_event/list_event_dto.dart';
 
 abstract class EventDatasource {
   Future<EventDto> createEvent();
@@ -13,6 +14,7 @@ abstract class EventDatasource {
   Future<void> joinTrip(String tripId);
   Future<String> getTripParticipants(String tripId);
   Future<void> removeParticipant(String tripId, String userId);
+  Future<ListEventDto> getEvents();
 }
 
 class EventDatasourceImpl implements EventDatasource {
@@ -45,4 +47,9 @@ class EventDatasourceImpl implements EventDatasource {
   @override
   Future<void> removeParticipant(String tripId, String userId) =>
       _api.removeParticipant(tripId, userId);
+
+  @override
+  Future<ListEventDto> getEvents() {
+    return _api.getEvents();
+  }
 }

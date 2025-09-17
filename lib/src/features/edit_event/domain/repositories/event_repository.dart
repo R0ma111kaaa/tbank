@@ -1,4 +1,5 @@
 import 'package:tbank/src/features/edit_event/domain/entities/event/event_entity.dart';
+import 'package:tbank/src/features/edit_event/domain/entities/event_list/event_list_entity.dart';
 import 'package:tbank/src/features/edit_event/domain/entities/update_event/update_event_entity.dart';
 
 abstract class EventRepository {
@@ -12,4 +13,5 @@ abstract class EventRepository {
   Future<void> joinEvent(String tripId);
   Future<String> getEventParticipants(String tripId);
   Future<void> removeParticipant(String tripId, String userId);
+  Future<EventListEntity> getEvents();
 }

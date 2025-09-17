@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:tbank/src/common/extensions/context_extensions.dart';
 import 'package:tbank/src/config/styles/dimensions.dart';
 
-class SmoothTabSwitcher extends StatefulWidget {
-  const SmoothTabSwitcher({super.key});
+class SmoothTabSwitcher extends StatelessWidget {
+  final VoidCallback onTap;
+  final int selectedIndex;
 
-  @override
-  State<SmoothTabSwitcher> createState() => _SmoothTabSwitcherState();
-}
-
-class _SmoothTabSwitcherState extends State<SmoothTabSwitcher> {
-  int _selectedIndex = 0;
+  const SmoothTabSwitcher({
+    required this.onTap,
+    super.key,
+    required this.selectedIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _SmoothTabSwitcherState extends State<SmoothTabSwitcher> {
             child: Stack(
               children: [
                 AnimatedAlign(
-                  alignment: _selectedIndex == 0
+                  alignment: selectedIndex == 0
                       ? Alignment.centerLeft
                       : Alignment.centerRight,
                   duration: const Duration(milliseconds: 100),
@@ -51,7 +51,7 @@ class _SmoothTabSwitcherState extends State<SmoothTabSwitcher> {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () => setState(() => _selectedIndex = 0),
+                        onTap: () => onTap,
                         child: Center(
                           child: Text(
                             'Я создатель',
@@ -64,7 +64,7 @@ class _SmoothTabSwitcherState extends State<SmoothTabSwitcher> {
                     ),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () => setState(() => _selectedIndex = 1),
+                        onTap: () => onTap,
                         child: Center(
                           child: Text(
                             'Я участник',

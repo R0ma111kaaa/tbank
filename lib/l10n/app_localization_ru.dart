@@ -75,6 +75,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get event => 'Событие';
 
   @override
+  String get load_event_list_title => 'Грузим ваши события';
+
+  @override
   String rubles(Object expense) {
     return '$expense₽';
   }

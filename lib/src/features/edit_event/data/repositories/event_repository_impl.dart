@@ -1,5 +1,6 @@
 import 'package:tbank/src/features/edit_event/data/datasources/event_datasource.dart';
 import 'package:tbank/src/features/edit_event/domain/entities/event/event_entity.dart';
+import 'package:tbank/src/features/edit_event/domain/entities/event_list/event_list_entity.dart';
 import 'package:tbank/src/features/edit_event/domain/entities/update_event/update_event_entity.dart';
 import 'package:tbank/src/features/edit_event/domain/repositories/event_repository.dart';
 
@@ -45,4 +46,10 @@ class EventRepositoryImpl implements EventRepository {
   @override
   Future<void> removeParticipant(String tripId, String userId) =>
       _datasource.removeParticipant(tripId, userId);
+
+  @override
+  Future<EventListEntity> getEvents() async {
+    final dto = await _datasource.getEvents();
+    return EventListEntity.fromDto(dto);
+  }
 }

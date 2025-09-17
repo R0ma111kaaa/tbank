@@ -226,6 +226,12 @@ abstract class AppLocalizations {
   /// **'Событие'**
   String get event;
 
+  /// load your events title
+  ///
+  /// In ru, this message translates to:
+  /// **'Грузим ваши события'**
+  String get load_event_list_title;
+
   /// add category button title
   ///
   /// In ru, this message translates to:

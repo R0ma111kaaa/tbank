@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tbank/src/common/extensions/context_extensions.dart';
 import 'package:tbank/src/config/styles/dimensions.dart';
 
-class BaseProgressIndicator extends StatelessWidget {
-  const BaseProgressIndicator({super.key, this.text});
+class PrimaryProgressIndicator extends StatelessWidget {
+  const PrimaryProgressIndicator({super.key, this.text});
 
   final String? text;
 
