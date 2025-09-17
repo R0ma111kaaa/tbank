@@ -18,11 +18,6 @@ class _SmoothTabSwitcherState extends State<SmoothTabSwitcher> {
       height: AppDimensions.smoothTabSwitcherHeight,
       child: Column(
         children: [
-          SizedBox(
-            height: 4,
-            width: double.infinity,
-            child: ColoredBox(color: context.colorExt.primaryColor),
-          ),
           Expanded(
             child: Stack(
               children: [

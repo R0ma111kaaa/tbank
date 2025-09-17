@@ -112,6 +112,12 @@ abstract class AppLocalizations {
   /// **'Загружаем страницу авторизации'**
   String get auth_page_loading;
 
+  /// upcoming events
+  ///
+  /// In ru, this message translates to:
+  /// **'Предстоящие'**
+  String get upcoming_events;
+
   /// current events
   ///
   /// In ru, this message translates to:
@@ -141,6 +147,90 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'участников'**
   String get participants5;
+
+  /// add event page title text
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавление события'**
+  String get add_event_title;
+
+  /// enter event title text
+  ///
+  /// In ru, this message translates to:
+  /// **'Название'**
+  String get event_title;
+
+  /// enter event participants text
+  ///
+  /// In ru, this message translates to:
+  /// **'Участники'**
+  String get participants_title;
+
+  /// enter event dates text
+  ///
+  /// In ru, this message translates to:
+  /// **'Даты'**
+  String get dates_title;
+
+  /// enter event budget for categories text
+  ///
+  /// In ru, this message translates to:
+  /// **'Бюджет по категориям'**
+  String get budget_title;
+
+  /// save button text
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить'**
+  String get save;
+
+  /// budget title
+  ///
+  /// In ru, this message translates to:
+  /// **'Бюджет (₽)'**
+  String get budget_title_text;
+
+  /// No description provided for @category_title_text.
+  ///
+  /// In ru, this message translates to:
+  /// **'Название категории'**
+  String get category_title_text;
+
+  /// cancel button text
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get cancel;
+
+  /// add category button title
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить категорию'**
+  String get add_category_button_title;
+
+  /// from text
+  ///
+  /// In ru, this message translates to:
+  /// **'С'**
+  String get from;
+
+  /// to text
+  ///
+  /// In ru, this message translates to:
+  /// **'По'**
+  String get to;
+
+  /// event
+  ///
+  /// In ru, this message translates to:
+  /// **'Событие'**
+  String get event;
+
+  /// add category button title
+  ///
+  /// In ru, this message translates to:
+  /// **'{expense}₽'**
+  String rubles(Object expense);
 }
 
 class _AppLocalizationsDelegate

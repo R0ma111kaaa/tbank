@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tbank/src/common/extensions/context_extensions.dart';
+import 'package:tbank/src/config/styles/dimensions.dart';
 
 class BaseSeparator extends StatelessWidget {
   const BaseSeparator({super.key, this.text});
@@ -18,7 +19,8 @@ class BaseSeparator extends StatelessWidget {
               color: context.colorExt.textColor,
             ),
           ),
-        Divider(height: 0, thickness: 1, color: context.colorExt.textColor),
+        Divider(height: 0, thickness: 0, color: context.colorExt.textColor),
+        const SizedBox(height: AppDimensions.defaultPadding / 2),
       ],
     );
   }

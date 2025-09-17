@@ -11,6 +11,11 @@
     "@auth_page_loading": {
         "description": "Loading auth page hint"
     },
+    "upcoming_events": "Предстоящие",
+    "@upcoming_events": {
+        "description": "upcoming events"
+        
+    },
     "current_events": "Текущие",
     "@current_events": {
         "description": "current events"
@@ -31,5 +36,64 @@
     "participants5": "участников",
     "@participants5": {
         "description": "participants5"
+    },
+    "add_event_title": "Добавление события",
+    "@add_event_title": {
+        "description": "add event page title text"
+    },
+    "event_title": "Название",
+    "@event_title": {
+        "description": "enter event title text"
+    },
+    "participants_title": "Участники",
+    "@participants_title": {
+        "description": "enter event participants text"
+    },
+    "dates_title": "Даты",
+    "@dates_title": {
+        "description": "enter event dates text"
+    },
+    "budget_title": "Бюджет по категориям",
+    "@budget_title": {
+        "description": "enter event budget for categories text"
+    },
+    "save": "Сохранить",
+    "@save": {
+        "description": "save button text"
+    },
+    "budget_title_text": "Бюджет (₽)",
+    "@budget_title_text": {
+        "description": "budget title"
+    },
+    "category_title_text": "Название категории",
+    "@category_title_textave": {
+        "description": "category title"
+    },
+    "cancel": "Отмена",
+    "@cancel": {
+        "description": "cancel button text"
+    },
+    "add_category_button_title": "Добавить категорию",
+    "@add_category_button_title": {
+        "description": "add category button title"
+    },
+    "from": "С",
+    "@from": {
+        "description": "from text"
+    },
+    "to": "По",
+    "@to": {
+        "description": "to text"
+    },
+    "event": "Событие",
+    "@event": {
+        "description": "event"
+    },
+    "rubles": "{expense}₽",
+    "@rubles": {
+        "description": "add category button title",
+        "placeholders": {
+            "expense": {}
+        }
     }
 }

@@ -5,7 +5,8 @@ import 'package:tbank/di/di.dart';
 import 'package:tbank/src/common/extensions/context_extensions.dart';
 import 'package:tbank/src/common/utils/dotenv_util.dart';
 import 'package:tbank/src/common/widgets/base_separator.dart';
-import 'package:tbank/src/common/widgets/event_card.dart';
+import 'package:tbank/src/features/event_list/presentation/widgets/card_margin.dart';
+import 'package:tbank/src/features/event_list/presentation/widgets/event_card.dart';
 import 'package:tbank/src/config/constants/constants.dart';
 import 'package:tbank/src/config/router/router.dart';
 import 'package:tbank/src/config/styles/dimensions.dart';
@@ -31,46 +32,66 @@ class EventListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          Env.get(EnvConstants.appTitle),
+          style: context.textExt.montserratExtraBold20.copyWith(
+            color: context.colorExt.primaryBackgroundColor,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.person,
+              size: AppDimensions.profileIconSize,
+              color: context.colorExt.primaryBackgroundColor,
+            ),
+            onPressed: () {
+              getIt<AuthRepository>().clearTokens();
+              context.router.replaceAll([const AuthRoute()]);
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsetsGeometry.all(AppDimensions.defaultPadding),
+          padding: const EdgeInsetsGeometry.symmetric(
+            horizontal: AppDimensions.defaultPadding,
+          ),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    Env.get(EnvConstants.appTitle),
-                    style: context.textExt.montserratExtraBold20,
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.person,
-                      size: AppDimensions.profileIconSize,
-                    ),
-                    onPressed: () {
-                      getIt<AuthRepository>().clearTokens();
-                      context.router.replaceAll([const AuthRoute()]);
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppDimensions.defaultSpacing),
               const SmoothTabSwitcher(),
               const SizedBox(height: AppDimensions.defaultSpacing),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.zero, // если не нужны отступы вокруг
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BaseSeparator(text: context.tr.current_events),
+                      BaseSeparator(text: context.tr.upcoming_events),
 
-                      const SizedBox(height: AppDimensions.defaultSpacing),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 5,
+                        itemCount: 1,
+                        itemBuilder: (context, index) => CardMargin(
+                          cardWidget: EventCard(
+                            name: 'Рыбалка',
+                            startDate: DateTime.utc(2025, 1, 3),
+                            endDate: DateTime.now(),
+                            participants: 17,
+                            spentMoney: 19860,
+                            totalMoney: 12000,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: AppDimensions.defaultSpacing),
+                      BaseSeparator(text: context.tr.current_events),
+
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 2,
                         itemBuilder: (context, index) => CardMargin(
                           cardWidget: EventCard(
                             name: 'Выходные',
@@ -86,14 +107,13 @@ class EventListView extends StatelessWidget {
                       const SizedBox(height: AppDimensions.defaultSpacing),
                       BaseSeparator(text: context.tr.past_events),
 
-                      const SizedBox(height: AppDimensions.defaultSpacing),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 3,
+                        itemCount: 30,
                         itemBuilder: (context, index) => CardMargin(
                           cardWidget: EventCard(
-                            name: 'Прошедшее событиеввввввввввв',
+                            name: 'Крым',
                             startDate: DateTime.utc(2024, 12, 20),
                             endDate: DateTime.utc(2024, 12, 21),
                             participants: 10,
@@ -119,7 +139,7 @@ class EventListView extends StatelessWidget {
                   minimumSize: const WidgetStatePropertyAll(
                     Size(
                       double.infinity,
-                      AppDimensions.addEventButtonMinHeight,
+                      AppDimensions.elevatedButtonMinHeight,
                     ),
                   ),
                 ),
@@ -137,26 +157,6 @@ class EventListView extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget eventLIstSeparatorBuilder(BuildContext context, int index) =>
-      const SizedBox(height: AppDimensions.defaultPadding);
-}
-
-class CardMargin extends StatelessWidget {
-  final Widget cardWidget;
-
-  const CardMargin({required this.cardWidget, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.defaultPadding,
-        vertical: AppDimensions.defaultPadding / 2,
-      ),
-      child: cardWidget,
     );
   }
 }
