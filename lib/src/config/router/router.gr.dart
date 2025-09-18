@@ -43,6 +43,53 @@ class EditEventRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [EventDataPage]
+class EventDataRoute extends PageRouteInfo<EventDataRouteArgs> {
+  EventDataRoute({
+    required EventEntity eventEntity,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+         EventDataRoute.name,
+         args: EventDataRouteArgs(eventEntity: eventEntity, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'EventDataRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<EventDataRouteArgs>();
+      return EventDataPage(eventEntity: args.eventEntity, key: args.key);
+    },
+  );
+}
+
+class EventDataRouteArgs {
+  const EventDataRouteArgs({required this.eventEntity, this.key});
+
+  final EventEntity eventEntity;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'EventDataRouteArgs{eventEntity: $eventEntity, key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! EventDataRouteArgs) return false;
+    return eventEntity == other.eventEntity && key == other.key;
+  }
+
+  @override
+  int get hashCode => eventEntity.hashCode ^ key.hashCode;
+}
+
+/// generated route for
 /// [EventListPage]
 class EventListRoute extends PageRouteInfo<void> {
   const EventListRoute({List<PageRouteInfo>? children})
@@ -54,22 +101,6 @@ class EventListRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const EventListPage();
-    },
-  );
-}
-
-/// generated route for
-/// [EventPage]
-class EventRoute extends PageRouteInfo<void> {
-  const EventRoute({List<PageRouteInfo>? children})
-    : super(EventRoute.name, initialChildren: children);
-
-  static const String name = 'EventRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const EventPage();
     },
   );
 }

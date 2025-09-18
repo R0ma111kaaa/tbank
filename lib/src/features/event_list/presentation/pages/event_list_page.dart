@@ -170,13 +170,17 @@ class EventListViewBuilder extends StatelessWidget {
       itemBuilder: (context, index) {
         final event = events[index];
         return CardMargin(
-          cardWidget: EventCard(
-            name: event.tripName,
-            startDate: event.plannedDate,
-            endDate: event.exitDate,
-            participants: event.participantCount,
-            spentMoney: event.totalSpent,
-            totalMoney: event.totalPlanned,
+          cardWidget: GestureDetector(
+            onTap: () =>
+                context.router.push(EventDataRoute(eventEntity: event)),
+            child: EventCard(
+              name: event.tripName,
+              startDate: event.plannedDate,
+              endDate: event.exitDate,
+              participants: event.participantCount,
+              spentMoney: event.totalSpent,
+              totalMoney: event.totalPlanned,
+            ),
           ),
         );
       },

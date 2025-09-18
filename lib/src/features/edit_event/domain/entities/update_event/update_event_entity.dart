@@ -16,7 +16,7 @@ abstract class UpdateEventEntity with _$UpdateEventEntity {
   const UpdateEventEntity._();
 
   UpdateEventRequestDto toDto() => UpdateEventRequestDto(
-    tripName: tripName,
+    tripName: tripName.isEmpty ? 'Событие' : tripName,
     plannedDate: plannedDate.toIso8601String().split('T')[0],
     exitDate: exitDate.toIso8601String().split('T')[0],
     categories: categories.map((e) => e.toJson()).toList(),
