@@ -16,6 +16,7 @@ import 'package:tbank/src/features/edit_event/presentation/widgets/date_range_vi
 import 'package:tbank/src/features/event_data/presentation/bloc/event_data_bloc.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/category_selector.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/participant_selector.dart';
+import 'package:tbank/src/features/event_data/presentation/widgets/primary_double_field.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/show_qr_dialog.dart';
 import 'package:tbank/src/features/event_list/presentation/widgets/smooth_tab_switcher.dart';
 
@@ -241,7 +242,7 @@ class EventDataView extends StatelessWidget {
                     eventDatabloc.add(
                       const EventDataEvent.startAddingExpense(),
                     );
-                    showModalBottomSheet(
+                    await showModalBottomSheet(
                       isScrollControlled: true,
                       context: context,
                       builder: (BuildContext context) {
@@ -383,7 +384,20 @@ class EventDataView extends StatelessWidget {
                                                               .colorExt
                                                               .primaryBackgroundColor,
                                                         ),
-                                                        PrimaryTextField(),
+                                                        PrimaryDoubleField(
+                                                          onChanged: (value) {
+                                                            eventDatabloc.add(
+                                                              EventDataEvent.updateExpense(
+                                                                addingExpenseState
+                                                                    .newExpenseEntity
+                                                                    .copyWith(
+                                                                      spentMoney:
+                                                                          value,
+                                                                    ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
                                                       ],
                                                     ),
                                                   ),

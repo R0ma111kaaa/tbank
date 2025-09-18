@@ -44,7 +44,9 @@ class EventDataBloc extends Bloc<EventDataEvent, EventDataState> {
         repository.addExpense(
           ExpenseRequestDto(
             expenseName: value.newExpenseEntity.title ?? 'расход',
-            amount: value.newExpenseEntity.spentMoney ?? 100,
+            amount:
+                (value.newExpenseEntity.spentMoney ?? 0) *
+                (value.newExpenseEntity.userCount ?? 0),
             categoryId: value.newExpenseEntity.entity == null
                 ? value.categories.first.categoryId
                 : value.newExpenseEntity.entity!.categoryId,

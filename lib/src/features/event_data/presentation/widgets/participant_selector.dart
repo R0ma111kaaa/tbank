@@ -62,13 +62,10 @@ class _ParticipantSelectorState extends State<ParticipantSelector> {
         final isSelected = _isSelected(user);
         return GestureDetector(
           onTap: () => _toggleSelection(user),
-          child: Opacity(
-            opacity: isSelected ? 1 : 0.6,
-            child: ParticipantCard(
-              name: '${user.yandexJson.firstName} ${user.yandexJson.lastName}',
-              imageProvider: NetworkImage(user.yandexJson.picture),
-              isHost: isSelected,
-            ),
+          child: ParticipantCard(
+            name: '${user.yandexJson.firstName} ${user.yandexJson.lastName}',
+            imageProvider: NetworkImage(user.yandexJson.picture),
+            isHost: isSelected,
           ),
         );
       }).toList(),
