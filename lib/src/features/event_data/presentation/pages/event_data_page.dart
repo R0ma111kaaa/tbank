@@ -15,6 +15,7 @@ import 'package:tbank/src/features/edit_event/presentation/widgets/category_widg
 import 'package:tbank/src/features/edit_event/presentation/widgets/date_range_view.dart';
 import 'package:tbank/src/features/event_data/presentation/bloc/event_data_bloc.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/category_selector.dart';
+import 'package:tbank/src/features/event_data/presentation/widgets/participant_selector.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/show_qr_dialog.dart';
 import 'package:tbank/src/features/event_list/presentation/widgets/smooth_tab_switcher.dart';
 
@@ -240,7 +241,7 @@ class EventDataView extends StatelessWidget {
                     eventDatabloc.add(
                       const EventDataEvent.startAddingExpense(),
                     );
-                    final result = await showModalBottomSheet(
+                    showModalBottomSheet(
                       isScrollControlled: true,
                       context: context,
                       builder: (BuildContext context) {
@@ -251,7 +252,7 @@ class EventDataView extends StatelessWidget {
                             child: BlocBuilder<EventDataBloc, EventDataState>(
                               builder: (context, state) {
                                 return state.maybeMap(
-                                  addingExpence: (value) {
+                                  addingExpence: (addingExpenseState) {
                                     return Padding(
                                       padding: const EdgeInsets.all(16),
                                       child: Column(
@@ -259,6 +260,19 @@ class EventDataView extends StatelessWidget {
                                           Expanded(
                                             child: Column(
                                               children: [
+                                                Text(
+                                                  'Новая трата',
+                                                  style: context
+                                                      .textExt
+                                                      .montserratExtraBold20
+                                                      .copyWith(
+                                                        color: context
+                                                            .colorExt
+                                                            .textColor,
+                                                        fontSize: 24,
+                                                      ),
+                                                ),
+                                                const SizedBox(height: 16),
                                                 const BaseSeparator(
                                                   text: 'Название',
                                                 ),
@@ -266,7 +280,8 @@ class EventDataView extends StatelessWidget {
                                                   onChanged: (newTitle) {
                                                     eventDatabloc.add(
                                                       EventDataEvent.updateExpense(
-                                                        value.newExpenseEntity
+                                                        addingExpenseState
+                                                            .newExpenseEntity
                                                             .copyWith(
                                                               title: newTitle,
                                                             ),
@@ -282,11 +297,13 @@ class EventDataView extends StatelessWidget {
                                                   text: 'Категория',
                                                 ),
                                                 SingleCategorySelector(
-                                                  categories: value.categories,
+                                                  categories: addingExpenseState
+                                                      .categories,
                                                   onCategorySelected: (selected) {
                                                     eventDatabloc.add(
                                                       EventDataEvent.updateExpense(
-                                                        value.newExpenseEntity
+                                                        addingExpenseState
+                                                            .newExpenseEntity
                                                             .copyWith(
                                                               entity: selected,
                                                             ),
@@ -299,11 +316,77 @@ class EventDataView extends StatelessWidget {
                                                   text: 'Оплата',
                                                 ),
                                                 SmoothTabSwitcher(
-                                                  selectedIndex: 0,
+                                                  selectedIndex:
+                                                      addingExpenseState
+                                                          .selectedTypeIndex,
                                                   firstTabTitle: 'Поровну',
                                                   secondTabTitle: 'По частям',
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    eventDatabloc.add(
+                                                      const EventDataEvent.changeType(),
+                                                    );
+                                                  },
                                                 ),
+                                                SizedBox(height: 12),
+                                                if (addingExpenseState
+                                                        .selectedTypeIndex ==
+                                                    0)
+                                                  Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                          20,
+                                                        ),
+                                                    decoration: BoxDecoration(
+                                                      color: context
+                                                          .colorExt
+                                                          .textColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            16,
+                                                          ),
+                                                    ),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        BaseSeparator(
+                                                          text: 'Кто тратил',
+                                                          color: context
+                                                              .colorExt
+                                                              .primaryBackgroundColor,
+                                                        ),
+                                                        ParticipantSelector(
+                                                          participants:
+                                                              addingExpenseState
+                                                                  .participants,
+                                                          isMultiSelect: true,
+                                                          onSelectionChanged: (selected) {
+                                                            eventDatabloc.add(
+                                                              EventDataEvent.updateExpense(
+                                                                addingExpenseState
+                                                                    .newExpenseEntity
+                                                                    .copyWith(
+                                                                      userCount:
+                                                                          selected
+                                                                              .length,
+                                                                    ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                        SizedBox(height: 12),
+                                                        BaseSeparator(
+                                                          text:
+                                                              'По сколько тратили',
+                                                          color: context
+                                                              .colorExt
+                                                              .primaryBackgroundColor,
+                                                        ),
+                                                        PrimaryTextField(),
+                                                      ],
+                                                    ),
+                                                  ),
                                               ],
                                             ),
                                           ),
@@ -346,7 +429,7 @@ class EventDataView extends StatelessWidget {
                                                   ),
                                             ),
                                           ),
-                                          SizedBox(height: 16),
+                                          const SizedBox(height: 16),
                                         ],
                                       ),
                                     );

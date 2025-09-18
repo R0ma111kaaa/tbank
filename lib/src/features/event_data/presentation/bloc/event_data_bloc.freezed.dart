@@ -55,7 +55,7 @@ extension EventDataEventPatterns on EventDataEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadData value)?  loadData,TResult Function( AddExpence value)?  addExpence,TResult Function( UpdateExpense value)?  updateExpense,TResult Function( StartAddingExpense value)?  startAddingExpense,TResult Function( SendExpense value)?  sendExpense,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadData value)?  loadData,TResult Function( AddExpence value)?  addExpence,TResult Function( UpdateExpense value)?  updateExpense,TResult Function( StartAddingExpense value)?  startAddingExpense,TResult Function( SendExpense value)?  sendExpense,TResult Function( ChangeType value)?  changeType,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case LoadData() when loadData != null:
@@ -63,7 +63,8 @@ return loadData(_that);case AddExpence() when addExpence != null:
 return addExpence(_that);case UpdateExpense() when updateExpense != null:
 return updateExpense(_that);case StartAddingExpense() when startAddingExpense != null:
 return startAddingExpense(_that);case SendExpense() when sendExpense != null:
-return sendExpense(_that);case _:
+return sendExpense(_that);case ChangeType() when changeType != null:
+return changeType(_that);case _:
   return orElse();
 
 }
@@ -81,7 +82,7 @@ return sendExpense(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadData value)  loadData,required TResult Function( AddExpence value)  addExpence,required TResult Function( UpdateExpense value)  updateExpense,required TResult Function( StartAddingExpense value)  startAddingExpense,required TResult Function( SendExpense value)  sendExpense,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadData value)  loadData,required TResult Function( AddExpence value)  addExpence,required TResult Function( UpdateExpense value)  updateExpense,required TResult Function( StartAddingExpense value)  startAddingExpense,required TResult Function( SendExpense value)  sendExpense,required TResult Function( ChangeType value)  changeType,}){
 final _that = this;
 switch (_that) {
 case LoadData():
@@ -89,7 +90,8 @@ return loadData(_that);case AddExpence():
 return addExpence(_that);case UpdateExpense():
 return updateExpense(_that);case StartAddingExpense():
 return startAddingExpense(_that);case SendExpense():
-return sendExpense(_that);case _:
+return sendExpense(_that);case ChangeType():
+return changeType(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -106,7 +108,7 @@ return sendExpense(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadData value)?  loadData,TResult? Function( AddExpence value)?  addExpence,TResult? Function( UpdateExpense value)?  updateExpense,TResult? Function( StartAddingExpense value)?  startAddingExpense,TResult? Function( SendExpense value)?  sendExpense,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadData value)?  loadData,TResult? Function( AddExpence value)?  addExpence,TResult? Function( UpdateExpense value)?  updateExpense,TResult? Function( StartAddingExpense value)?  startAddingExpense,TResult? Function( SendExpense value)?  sendExpense,TResult? Function( ChangeType value)?  changeType,}){
 final _that = this;
 switch (_that) {
 case LoadData() when loadData != null:
@@ -114,7 +116,8 @@ return loadData(_that);case AddExpence() when addExpence != null:
 return addExpence(_that);case UpdateExpense() when updateExpense != null:
 return updateExpense(_that);case StartAddingExpense() when startAddingExpense != null:
 return startAddingExpense(_that);case SendExpense() when sendExpense != null:
-return sendExpense(_that);case _:
+return sendExpense(_that);case ChangeType() when changeType != null:
+return changeType(_that);case _:
   return null;
 
 }
@@ -131,14 +134,15 @@ return sendExpense(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( EventEntity eventEntity)?  loadData,TResult Function()?  addExpence,TResult Function( NewExpenseEntity newEntity)?  updateExpense,TResult Function()?  startAddingExpense,TResult Function()?  sendExpense,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( EventEntity eventEntity)?  loadData,TResult Function()?  addExpence,TResult Function( NewExpenseEntity newEntity)?  updateExpense,TResult Function()?  startAddingExpense,TResult Function()?  sendExpense,TResult Function()?  changeType,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LoadData() when loadData != null:
 return loadData(_that.eventEntity);case AddExpence() when addExpence != null:
 return addExpence();case UpdateExpense() when updateExpense != null:
 return updateExpense(_that.newEntity);case StartAddingExpense() when startAddingExpense != null:
 return startAddingExpense();case SendExpense() when sendExpense != null:
-return sendExpense();case _:
+return sendExpense();case ChangeType() when changeType != null:
+return changeType();case _:
   return orElse();
 
 }
@@ -156,14 +160,15 @@ return sendExpense();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( EventEntity eventEntity)  loadData,required TResult Function()  addExpence,required TResult Function( NewExpenseEntity newEntity)  updateExpense,required TResult Function()  startAddingExpense,required TResult Function()  sendExpense,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( EventEntity eventEntity)  loadData,required TResult Function()  addExpence,required TResult Function( NewExpenseEntity newEntity)  updateExpense,required TResult Function()  startAddingExpense,required TResult Function()  sendExpense,required TResult Function()  changeType,}) {final _that = this;
 switch (_that) {
 case LoadData():
 return loadData(_that.eventEntity);case AddExpence():
 return addExpence();case UpdateExpense():
 return updateExpense(_that.newEntity);case StartAddingExpense():
 return startAddingExpense();case SendExpense():
-return sendExpense();case _:
+return sendExpense();case ChangeType():
+return changeType();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -180,14 +185,15 @@ return sendExpense();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( EventEntity eventEntity)?  loadData,TResult? Function()?  addExpence,TResult? Function( NewExpenseEntity newEntity)?  updateExpense,TResult? Function()?  startAddingExpense,TResult? Function()?  sendExpense,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( EventEntity eventEntity)?  loadData,TResult? Function()?  addExpence,TResult? Function( NewExpenseEntity newEntity)?  updateExpense,TResult? Function()?  startAddingExpense,TResult? Function()?  sendExpense,TResult? Function()?  changeType,}) {final _that = this;
 switch (_that) {
 case LoadData() when loadData != null:
 return loadData(_that.eventEntity);case AddExpence() when addExpence != null:
 return addExpence();case UpdateExpense() when updateExpense != null:
 return updateExpense(_that.newEntity);case StartAddingExpense() when startAddingExpense != null:
 return startAddingExpense();case SendExpense() when sendExpense != null:
-return sendExpense();case _:
+return sendExpense();case ChangeType() when changeType != null:
+return changeType();case _:
   return null;
 
 }
@@ -442,6 +448,38 @@ String toString() {
 
 
 /// @nodoc
+
+
+class ChangeType implements EventDataEvent {
+  const ChangeType();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChangeType);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'EventDataEvent.changeType()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
 mixin _$EventDataState {
 
 
@@ -558,13 +596,13 @@ return addingExpence(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories)?  loaded,TResult Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories,  NewExpenseEntity newExpenseEntity)?  addingExpence,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories)?  loaded,TResult Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories,  NewExpenseEntity newExpenseEntity,  int selectedTypeIndex)?  addingExpence,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
 return loaded(_that.eventEntity,_that.participants,_that.categories);case AddingExpence() when addingExpence != null:
-return addingExpence(_that.eventEntity,_that.participants,_that.categories,_that.newExpenseEntity);case _:
+return addingExpence(_that.eventEntity,_that.participants,_that.categories,_that.newExpenseEntity,_that.selectedTypeIndex);case _:
   return orElse();
 
 }
@@ -582,13 +620,13 @@ return addingExpence(_that.eventEntity,_that.participants,_that.categories,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories)  loaded,required TResult Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories,  NewExpenseEntity newExpenseEntity)  addingExpence,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories)  loaded,required TResult Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories,  NewExpenseEntity newExpenseEntity,  int selectedTypeIndex)  addingExpence,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
 return loading();case Loaded():
 return loaded(_that.eventEntity,_that.participants,_that.categories);case AddingExpence():
-return addingExpence(_that.eventEntity,_that.participants,_that.categories,_that.newExpenseEntity);case _:
+return addingExpence(_that.eventEntity,_that.participants,_that.categories,_that.newExpenseEntity,_that.selectedTypeIndex);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -605,13 +643,13 @@ return addingExpence(_that.eventEntity,_that.participants,_that.categories,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories)?  loaded,TResult? Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories,  NewExpenseEntity newExpenseEntity)?  addingExpence,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories)?  loaded,TResult? Function( EventEntity eventEntity,  List<UserEntity> participants,  List<CategoryResponseEntity> categories,  NewExpenseEntity newExpenseEntity,  int selectedTypeIndex)?  addingExpence,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Loaded() when loaded != null:
 return loaded(_that.eventEntity,_that.participants,_that.categories);case AddingExpence() when addingExpence != null:
-return addingExpence(_that.eventEntity,_that.participants,_that.categories,_that.newExpenseEntity);case _:
+return addingExpence(_that.eventEntity,_that.participants,_that.categories,_that.newExpenseEntity,_that.selectedTypeIndex);case _:
   return null;
 
 }
@@ -778,7 +816,7 @@ $EventEntityCopyWith<$Res> get eventEntity {
 
 
 class AddingExpence implements EventDataState {
-  const AddingExpence(this.eventEntity, final  List<UserEntity> participants, final  List<CategoryResponseEntity> categories, this.newExpenseEntity): _participants = participants,_categories = categories;
+  const AddingExpence(this.eventEntity, final  List<UserEntity> participants, final  List<CategoryResponseEntity> categories, this.newExpenseEntity, this.selectedTypeIndex): _participants = participants,_categories = categories;
   
 
  final  EventEntity eventEntity;
@@ -797,6 +835,7 @@ class AddingExpence implements EventDataState {
 }
 
  final  NewExpenseEntity newExpenseEntity;
+ final  int selectedTypeIndex;
 
 /// Create a copy of EventDataState
 /// with the given fields replaced by the non-null parameter values.
@@ -808,16 +847,16 @@ $AddingExpenceCopyWith<AddingExpence> get copyWith => _$AddingExpenceCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddingExpence&&(identical(other.eventEntity, eventEntity) || other.eventEntity == eventEntity)&&const DeepCollectionEquality().equals(other._participants, _participants)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.newExpenseEntity, newExpenseEntity) || other.newExpenseEntity == newExpenseEntity));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddingExpence&&(identical(other.eventEntity, eventEntity) || other.eventEntity == eventEntity)&&const DeepCollectionEquality().equals(other._participants, _participants)&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.newExpenseEntity, newExpenseEntity) || other.newExpenseEntity == newExpenseEntity)&&(identical(other.selectedTypeIndex, selectedTypeIndex) || other.selectedTypeIndex == selectedTypeIndex));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,eventEntity,const DeepCollectionEquality().hash(_participants),const DeepCollectionEquality().hash(_categories),newExpenseEntity);
+int get hashCode => Object.hash(runtimeType,eventEntity,const DeepCollectionEquality().hash(_participants),const DeepCollectionEquality().hash(_categories),newExpenseEntity,selectedTypeIndex);
 
 @override
 String toString() {
-  return 'EventDataState.addingExpence(eventEntity: $eventEntity, participants: $participants, categories: $categories, newExpenseEntity: $newExpenseEntity)';
+  return 'EventDataState.addingExpence(eventEntity: $eventEntity, participants: $participants, categories: $categories, newExpenseEntity: $newExpenseEntity, selectedTypeIndex: $selectedTypeIndex)';
 }
 
 
@@ -828,7 +867,7 @@ abstract mixin class $AddingExpenceCopyWith<$Res> implements $EventDataStateCopy
   factory $AddingExpenceCopyWith(AddingExpence value, $Res Function(AddingExpence) _then) = _$AddingExpenceCopyWithImpl;
 @useResult
 $Res call({
- EventEntity eventEntity, List<UserEntity> participants, List<CategoryResponseEntity> categories, NewExpenseEntity newExpenseEntity
+ EventEntity eventEntity, List<UserEntity> participants, List<CategoryResponseEntity> categories, NewExpenseEntity newExpenseEntity, int selectedTypeIndex
 });
 
 
@@ -845,13 +884,14 @@ class _$AddingExpenceCopyWithImpl<$Res>
 
 /// Create a copy of EventDataState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? eventEntity = null,Object? participants = null,Object? categories = null,Object? newExpenseEntity = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? eventEntity = null,Object? participants = null,Object? categories = null,Object? newExpenseEntity = null,Object? selectedTypeIndex = null,}) {
   return _then(AddingExpence(
 null == eventEntity ? _self.eventEntity : eventEntity // ignore: cast_nullable_to_non_nullable
 as EventEntity,null == participants ? _self._participants : participants // ignore: cast_nullable_to_non_nullable
 as List<UserEntity>,null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
 as List<CategoryResponseEntity>,null == newExpenseEntity ? _self.newExpenseEntity : newExpenseEntity // ignore: cast_nullable_to_non_nullable
-as NewExpenseEntity,
+as NewExpenseEntity,null == selectedTypeIndex ? _self.selectedTypeIndex : selectedTypeIndex // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

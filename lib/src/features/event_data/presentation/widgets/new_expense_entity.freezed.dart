@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$NewExpenseEntity {
 
- String? get title; CategoryResponseEntity? get entity; double? get spentMoney;
+ String? get title; CategoryResponseEntity? get entity; double? get spentMoney; int? get userCount;
 /// Create a copy of NewExpenseEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $NewExpenseEntityCopyWith<NewExpenseEntity> get copyWith => _$NewExpenseEntityCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NewExpenseEntity&&(identical(other.title, title) || other.title == title)&&(identical(other.entity, entity) || other.entity == entity)&&(identical(other.spentMoney, spentMoney) || other.spentMoney == spentMoney));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NewExpenseEntity&&(identical(other.title, title) || other.title == title)&&(identical(other.entity, entity) || other.entity == entity)&&(identical(other.spentMoney, spentMoney) || other.spentMoney == spentMoney)&&(identical(other.userCount, userCount) || other.userCount == userCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,entity,spentMoney);
+int get hashCode => Object.hash(runtimeType,title,entity,spentMoney,userCount);
 
 @override
 String toString() {
-  return 'NewExpenseEntity(title: $title, entity: $entity, spentMoney: $spentMoney)';
+  return 'NewExpenseEntity(title: $title, entity: $entity, spentMoney: $spentMoney, userCount: $userCount)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $NewExpenseEntityCopyWith<$Res>  {
   factory $NewExpenseEntityCopyWith(NewExpenseEntity value, $Res Function(NewExpenseEntity) _then) = _$NewExpenseEntityCopyWithImpl;
 @useResult
 $Res call({
- String? title, CategoryResponseEntity? entity, double? spentMoney
+ String? title, CategoryResponseEntity? entity, double? spentMoney, int? userCount
 });
 
 
@@ -62,12 +62,13 @@ class _$NewExpenseEntityCopyWithImpl<$Res>
 
 /// Create a copy of NewExpenseEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = freezed,Object? entity = freezed,Object? spentMoney = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = freezed,Object? entity = freezed,Object? spentMoney = freezed,Object? userCount = freezed,}) {
   return _then(_self.copyWith(
 title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,entity: freezed == entity ? _self.entity : entity // ignore: cast_nullable_to_non_nullable
 as CategoryResponseEntity?,spentMoney: freezed == spentMoney ? _self.spentMoney : spentMoney // ignore: cast_nullable_to_non_nullable
-as double?,
+as double?,userCount: freezed == userCount ? _self.userCount : userCount // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -152,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? title,  CategoryResponseEntity? entity,  double? spentMoney)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? title,  CategoryResponseEntity? entity,  double? spentMoney,  int? userCount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NewExpenseEntity() when $default != null:
-return $default(_that.title,_that.entity,_that.spentMoney);case _:
+return $default(_that.title,_that.entity,_that.spentMoney,_that.userCount);case _:
   return orElse();
 
 }
@@ -173,10 +174,10 @@ return $default(_that.title,_that.entity,_that.spentMoney);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? title,  CategoryResponseEntity? entity,  double? spentMoney)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? title,  CategoryResponseEntity? entity,  double? spentMoney,  int? userCount)  $default,) {final _that = this;
 switch (_that) {
 case _NewExpenseEntity():
-return $default(_that.title,_that.entity,_that.spentMoney);case _:
+return $default(_that.title,_that.entity,_that.spentMoney,_that.userCount);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +194,10 @@ return $default(_that.title,_that.entity,_that.spentMoney);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? title,  CategoryResponseEntity? entity,  double? spentMoney)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? title,  CategoryResponseEntity? entity,  double? spentMoney,  int? userCount)?  $default,) {final _that = this;
 switch (_that) {
 case _NewExpenseEntity() when $default != null:
-return $default(_that.title,_that.entity,_that.spentMoney);case _:
+return $default(_that.title,_that.entity,_that.spentMoney,_that.userCount);case _:
   return null;
 
 }
@@ -208,12 +209,13 @@ return $default(_that.title,_that.entity,_that.spentMoney);case _:
 
 
 class _NewExpenseEntity implements NewExpenseEntity {
-  const _NewExpenseEntity({this.title, this.entity, this.spentMoney});
+  const _NewExpenseEntity({this.title, this.entity, this.spentMoney, this.userCount});
   
 
 @override final  String? title;
 @override final  CategoryResponseEntity? entity;
 @override final  double? spentMoney;
+@override final  int? userCount;
 
 /// Create a copy of NewExpenseEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -225,16 +227,16 @@ _$NewExpenseEntityCopyWith<_NewExpenseEntity> get copyWith => __$NewExpenseEntit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NewExpenseEntity&&(identical(other.title, title) || other.title == title)&&(identical(other.entity, entity) || other.entity == entity)&&(identical(other.spentMoney, spentMoney) || other.spentMoney == spentMoney));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NewExpenseEntity&&(identical(other.title, title) || other.title == title)&&(identical(other.entity, entity) || other.entity == entity)&&(identical(other.spentMoney, spentMoney) || other.spentMoney == spentMoney)&&(identical(other.userCount, userCount) || other.userCount == userCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,entity,spentMoney);
+int get hashCode => Object.hash(runtimeType,title,entity,spentMoney,userCount);
 
 @override
 String toString() {
-  return 'NewExpenseEntity(title: $title, entity: $entity, spentMoney: $spentMoney)';
+  return 'NewExpenseEntity(title: $title, entity: $entity, spentMoney: $spentMoney, userCount: $userCount)';
 }
 
 
@@ -245,7 +247,7 @@ abstract mixin class _$NewExpenseEntityCopyWith<$Res> implements $NewExpenseEnti
   factory _$NewExpenseEntityCopyWith(_NewExpenseEntity value, $Res Function(_NewExpenseEntity) _then) = __$NewExpenseEntityCopyWithImpl;
 @override @useResult
 $Res call({
- String? title, CategoryResponseEntity? entity, double? spentMoney
+ String? title, CategoryResponseEntity? entity, double? spentMoney, int? userCount
 });
 
 
@@ -262,12 +264,13 @@ class __$NewExpenseEntityCopyWithImpl<$Res>
 
 /// Create a copy of NewExpenseEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = freezed,Object? entity = freezed,Object? spentMoney = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = freezed,Object? entity = freezed,Object? spentMoney = freezed,Object? userCount = freezed,}) {
   return _then(_NewExpenseEntity(
 title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,entity: freezed == entity ? _self.entity : entity // ignore: cast_nullable_to_non_nullable
 as CategoryResponseEntity?,spentMoney: freezed == spentMoney ? _self.spentMoney : spentMoney // ignore: cast_nullable_to_non_nullable
-as double?,
+as double?,userCount: freezed == userCount ? _self.userCount : userCount // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

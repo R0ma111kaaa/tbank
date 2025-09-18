@@ -9,5 +9,6 @@ abstract class NewExpenseEntity with _$NewExpenseEntity {
     String? title,
     CategoryResponseEntity? entity,
     double? spentMoney,
+    int? userCount,
   }) = _NewExpenseEntity;
 }

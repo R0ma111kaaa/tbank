@@ -14,5 +14,6 @@ class EventDataState with _$EventDataState {
     List<UserEntity> participants,
     List<CategoryResponseEntity> categories,
     NewExpenseEntity newExpenseEntity,
+    int selectedTypeIndex,
   ) = AddingExpence;
 }

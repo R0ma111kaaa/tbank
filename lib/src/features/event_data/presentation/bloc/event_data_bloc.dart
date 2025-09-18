@@ -19,6 +19,7 @@ class EventDataBloc extends Bloc<EventDataEvent, EventDataState> {
     on<UpdateExpense>(_onUpdateExpense);
     on<StartAddingExpense>(_onStartAddingExpense);
     on<SendExpense>(_onSendExpence);
+    on<ChangeType>(_onChangeType);
   }
 
   Future<void> _onLoadData(LoadData event, Emitter<EventDataState> emit) async {
@@ -71,7 +72,24 @@ class EventDataBloc extends Bloc<EventDataEvent, EventDataState> {
             loadedState.eventEntity,
             loadedState.participants,
             loadedState.categories,
-            const NewExpenseEntity(),
+            NewExpenseEntity(
+              spentMoney: 0,
+              userCount: 0,
+              entity: loadedState.categories[0],
+            ),
+            0,
+          ),
+        );
+      },
+    );
+  }
+
+  void _onChangeType(ChangeType event, Emitter<EventDataState> emit) {
+    state.mapOrNull(
+      addingExpence: (addingExpence) {
+        emit(
+          addingExpence.copyWith(
+            selectedTypeIndex: addingExpence.selectedTypeIndex == 0 ? 1 : 0,
           ),
         );
       },
