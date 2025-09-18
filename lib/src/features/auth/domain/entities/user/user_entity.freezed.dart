@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserEntity {
 
- String? get id; String? get yandexId; Map<String, dynamic>? get yandexJson;
+ YandexJsonEntity get yandexJson; String? get id; String? get yandexId;
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $UserEntityCopyWith<UserEntity> get copyWith => _$UserEntityCopyWithImpl<UserEnt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.yandexId, yandexId) || other.yandexId == yandexId)&&const DeepCollectionEquality().equals(other.yandexJson, yandexJson));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEntity&&(identical(other.yandexJson, yandexJson) || other.yandexJson == yandexJson)&&(identical(other.id, id) || other.id == id)&&(identical(other.yandexId, yandexId) || other.yandexId == yandexId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,yandexId,const DeepCollectionEquality().hash(yandexJson));
+int get hashCode => Object.hash(runtimeType,yandexJson,id,yandexId);
 
 @override
 String toString() {
-  return 'UserEntity(id: $id, yandexId: $yandexId, yandexJson: $yandexJson)';
+  return 'UserEntity(yandexJson: $yandexJson, id: $id, yandexId: $yandexId)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $UserEntityCopyWith<$Res>  {
   factory $UserEntityCopyWith(UserEntity value, $Res Function(UserEntity) _then) = _$UserEntityCopyWithImpl;
 @useResult
 $Res call({
- String? id, String? yandexId, Map<String, dynamic>? yandexJson
+ YandexJsonEntity yandexJson, String? id, String? yandexId
 });
 
 
-
+$YandexJsonEntityCopyWith<$Res> get yandexJson;
 
 }
 /// @nodoc
@@ -62,15 +62,24 @@ class _$UserEntityCopyWithImpl<$Res>
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? yandexId = freezed,Object? yandexJson = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? yandexJson = null,Object? id = freezed,Object? yandexId = freezed,}) {
   return _then(_self.copyWith(
-id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+yandexJson: null == yandexJson ? _self.yandexJson : yandexJson // ignore: cast_nullable_to_non_nullable
+as YandexJsonEntity,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,yandexId: freezed == yandexId ? _self.yandexId : yandexId // ignore: cast_nullable_to_non_nullable
-as String?,yandexJson: freezed == yandexJson ? _self.yandexJson : yandexJson // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>?,
+as String?,
   ));
 }
-
+/// Create a copy of UserEntity
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$YandexJsonEntityCopyWith<$Res> get yandexJson {
+  
+  return $YandexJsonEntityCopyWith<$Res>(_self.yandexJson, (value) {
+    return _then(_self.copyWith(yandexJson: value));
+  });
+}
 }
 
 
@@ -152,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? yandexId,  Map<String, dynamic>? yandexJson)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( YandexJsonEntity yandexJson,  String? id,  String? yandexId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserEntity() when $default != null:
-return $default(_that.id,_that.yandexId,_that.yandexJson);case _:
+return $default(_that.yandexJson,_that.id,_that.yandexId);case _:
   return orElse();
 
 }
@@ -173,10 +182,10 @@ return $default(_that.id,_that.yandexId,_that.yandexJson);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? yandexId,  Map<String, dynamic>? yandexJson)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( YandexJsonEntity yandexJson,  String? id,  String? yandexId)  $default,) {final _that = this;
 switch (_that) {
 case _UserEntity():
-return $default(_that.id,_that.yandexId,_that.yandexJson);case _:
+return $default(_that.yandexJson,_that.id,_that.yandexId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +202,10 @@ return $default(_that.id,_that.yandexId,_that.yandexJson);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? yandexId,  Map<String, dynamic>? yandexJson)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( YandexJsonEntity yandexJson,  String? id,  String? yandexId)?  $default,) {final _that = this;
 switch (_that) {
 case _UserEntity() when $default != null:
-return $default(_that.id,_that.yandexId,_that.yandexJson);case _:
+return $default(_that.yandexJson,_that.id,_that.yandexId);case _:
   return null;
 
 }
@@ -208,20 +217,12 @@ return $default(_that.id,_that.yandexId,_that.yandexJson);case _:
 
 
 class _UserEntity implements UserEntity {
-  const _UserEntity({this.id, this.yandexId, final  Map<String, dynamic>? yandexJson}): _yandexJson = yandexJson;
+  const _UserEntity({required this.yandexJson, this.id, this.yandexId});
   
 
+@override final  YandexJsonEntity yandexJson;
 @override final  String? id;
 @override final  String? yandexId;
- final  Map<String, dynamic>? _yandexJson;
-@override Map<String, dynamic>? get yandexJson {
-  final value = _yandexJson;
-  if (value == null) return null;
-  if (_yandexJson is EqualUnmodifiableMapView) return _yandexJson;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(value);
-}
-
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +234,16 @@ _$UserEntityCopyWith<_UserEntity> get copyWith => __$UserEntityCopyWithImpl<_Use
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.yandexId, yandexId) || other.yandexId == yandexId)&&const DeepCollectionEquality().equals(other._yandexJson, _yandexJson));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserEntity&&(identical(other.yandexJson, yandexJson) || other.yandexJson == yandexJson)&&(identical(other.id, id) || other.id == id)&&(identical(other.yandexId, yandexId) || other.yandexId == yandexId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,yandexId,const DeepCollectionEquality().hash(_yandexJson));
+int get hashCode => Object.hash(runtimeType,yandexJson,id,yandexId);
 
 @override
 String toString() {
-  return 'UserEntity(id: $id, yandexId: $yandexId, yandexJson: $yandexJson)';
+  return 'UserEntity(yandexJson: $yandexJson, id: $id, yandexId: $yandexId)';
 }
 
 
@@ -253,11 +254,11 @@ abstract mixin class _$UserEntityCopyWith<$Res> implements $UserEntityCopyWith<$
   factory _$UserEntityCopyWith(_UserEntity value, $Res Function(_UserEntity) _then) = __$UserEntityCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String? yandexId, Map<String, dynamic>? yandexJson
+ YandexJsonEntity yandexJson, String? id, String? yandexId
 });
 
 
-
+@override $YandexJsonEntityCopyWith<$Res> get yandexJson;
 
 }
 /// @nodoc
@@ -270,16 +271,25 @@ class __$UserEntityCopyWithImpl<$Res>
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? yandexId = freezed,Object? yandexJson = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? yandexJson = null,Object? id = freezed,Object? yandexId = freezed,}) {
   return _then(_UserEntity(
-id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+yandexJson: null == yandexJson ? _self.yandexJson : yandexJson // ignore: cast_nullable_to_non_nullable
+as YandexJsonEntity,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,yandexId: freezed == yandexId ? _self.yandexId : yandexId // ignore: cast_nullable_to_non_nullable
-as String?,yandexJson: freezed == yandexJson ? _self._yandexJson : yandexJson // ignore: cast_nullable_to_non_nullable
-as Map<String, dynamic>?,
+as String?,
   ));
 }
 
-
+/// Create a copy of UserEntity
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$YandexJsonEntityCopyWith<$Res> get yandexJson {
+  
+  return $YandexJsonEntityCopyWith<$Res>(_self.yandexJson, (value) {
+    return _then(_self.copyWith(yandexJson: value));
+  });
+}
 }
 
 // dart format on

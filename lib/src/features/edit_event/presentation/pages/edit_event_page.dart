@@ -9,6 +9,7 @@ import 'package:tbank/src/common/widgets/primary_text_field.dart';
 import 'package:tbank/src/config/router/router.dart';
 import 'package:tbank/src/config/styles/dimensions.dart';
 import 'package:tbank/src/features/edit_event/presentation/bloc/event_bloc.dart';
+import 'package:tbank/src/features/edit_event/presentation/widgets/category_widget.dart';
 import 'package:tbank/src/features/edit_event/presentation/widgets/date_picker.dart';
 import 'package:tbank/src/features/edit_event/presentation/widgets/show_add_item_dialog.dart';
 
@@ -92,7 +93,7 @@ class EditEventView extends StatelessWidget {
                                         .entity
                                         .categories[index]
                                         .categoryName,
-                                    expense: editingState
+                                    totalPlanned: editingState
                                         .entity
                                         .categories[index]
                                         .estimatedExpense,
@@ -166,52 +167,6 @@ class EditEventView extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
-  }
-}
-
-class CategoryWidget extends StatelessWidget {
-  const CategoryWidget({
-    required this.categoryName,
-    required this.expense,
-    super.key,
-  });
-
-  final String categoryName;
-  final double expense;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: AppDimensions.categoryWidgetHeight,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.defaultPadding,
-      ),
-      decoration: BoxDecoration(
-        color: context.colorExt.secondaryBackgroundColor,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.categoryWidgetBorderRadius,
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            categoryName,
-            style: context.textExt.montserratRegular18.copyWith(
-              color: context.colorExt.textColor,
-            ),
-          ),
-          Text(
-            context.tr.rubles(expense),
-            style: context.textExt.montserratRegular18.copyWith(
-              color: context.colorExt.textColor,
-            ),
-          ),
-        ],
       ),
     );
   }

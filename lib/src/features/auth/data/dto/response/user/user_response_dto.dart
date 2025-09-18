@@ -11,7 +11,7 @@ class UserResponseDto {
   final String? yandexId;
 
   @JsonKey(name: 'yandex_json')
-  final Map<String, dynamic>? yandexJson;
+  final Object? yandexJson;
 
   UserResponseDto({
     required this.id,

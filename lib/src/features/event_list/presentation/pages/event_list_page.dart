@@ -204,6 +204,7 @@ class EventListView extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(height: AppDimensions.defaultSpacing),
                 ],
               ),
             ),

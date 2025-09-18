@@ -5,11 +5,15 @@ import 'package:tbank/src/config/styles/dimensions.dart';
 class SmoothTabSwitcher extends StatelessWidget {
   final VoidCallback onTap;
   final int selectedIndex;
+  final String firstTabTitle;
+  final String secondTabTitle;
 
   const SmoothTabSwitcher({
     required this.onTap,
-    super.key,
     required this.selectedIndex,
+    this.firstTabTitle = 'Я создатель',
+    this.secondTabTitle = 'Я участник',
+    super.key,
   });
 
   @override
@@ -54,7 +58,7 @@ class SmoothTabSwitcher extends StatelessWidget {
                         onTap: onTap,
                         child: Center(
                           child: Text(
-                            'Я создатель',
+                            firstTabTitle,
                             style: context.textExt.montserratMedium14.copyWith(
                               color: context.colorExt.textColor,
                             ),
@@ -67,7 +71,7 @@ class SmoothTabSwitcher extends StatelessWidget {
                         onTap: onTap,
                         child: Center(
                           child: Text(
-                            'Я участник',
+                            secondTabTitle,
                             style: context.textExt.montserratMedium14.copyWith(
                               color: context.colorExt.textColor,
                             ),
