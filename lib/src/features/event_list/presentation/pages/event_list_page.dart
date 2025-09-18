@@ -14,6 +14,7 @@ import 'package:tbank/src/config/router/router.dart';
 import 'package:tbank/src/config/styles/dimensions.dart';
 import 'package:tbank/src/features/auth/domain/repositories/auth_repository.dart';
 import 'package:tbank/src/features/event_list/presentation/bloc/event_list_bloc.dart';
+import 'package:tbank/src/features/event_list/presentation/widgets/qu_code_scanner.dart';
 import 'package:tbank/src/features/event_list/presentation/widgets/smooth_tab_switcher.dart';
 
 @RoutePage()
@@ -44,6 +45,14 @@ class EventListView extends StatelessWidget {
           ),
         ),
         actions: [
+          QRScanButton(
+            onScan: (eventId) {
+              eventListBloc.add(EventListEvent.joinEvent(eventId));
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Запрос на вступление отправлен")),
+              );
+            },
+          ),
           IconButton(
             icon: Icon(
               Icons.person,
@@ -90,28 +99,77 @@ class EventListView extends StatelessWidget {
                         final upcomingEvents = eventListsObject['upcoming']!;
                         final currentEvents = eventListsObject['current']!;
                         final pastEvents = eventListsObject['past']!;
-                        return SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              BaseSeparator(text: context.tr.upcoming_events),
-                              EventListViewBuilder(events: upcomingEvents),
-
-                              const SizedBox(
-                                height: AppDimensions.defaultSpacing,
-                              ),
-                              BaseSeparator(text: context.tr.current_events),
-
-                              EventListViewBuilder(events: currentEvents),
-
-                              const SizedBox(
-                                height: AppDimensions.defaultSpacing,
-                              ),
-                              BaseSeparator(text: context.tr.past_events),
-
-                              EventListViewBuilder(events: pastEvents),
-                            ],
-                          ),
+                        return RefreshIndicator(
+                          color: context.colorExt.primaryColor,
+                          onRefresh: () async {
+                            eventListBloc.add(const EventListEvent.loadData());
+                            return Future.value();
+                          },
+                          child:
+                              upcomingEvents.isNotEmpty ||
+                                  currentEvents.isNotEmpty ||
+                                  pastEvents.isNotEmpty
+                              ? ListView(
+                                  padding: EdgeInsets.zero,
+                                  children: [
+                                    if (upcomingEvents.isNotEmpty)
+                                      BaseSeparator(
+                                        text: context.tr.upcoming_events,
+                                      ),
+                                    EventListViewBuilder(
+                                      events: upcomingEvents,
+                                    ),
+                                    const SizedBox(
+                                      height: AppDimensions.defaultSpacing,
+                                    ),
+                                    if (currentEvents.isNotEmpty)
+                                      BaseSeparator(
+                                        text: context.tr.current_events,
+                                      ),
+                                    EventListViewBuilder(events: currentEvents),
+                                    const SizedBox(
+                                      height: AppDimensions.defaultSpacing,
+                                    ),
+                                    if (pastEvents.isNotEmpty)
+                                      BaseSeparator(
+                                        text: context.tr.past_events,
+                                      ),
+                                    EventListViewBuilder(events: pastEvents),
+                                    EventListViewBuilder(events: currentEvents),
+                                    const SizedBox(
+                                      height: AppDimensions.defaultSpacing,
+                                    ),
+                                  ],
+                                )
+                              : SingleChildScrollView(
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
+                                  child: SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height *
+                                        0.7,
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/chemodan.png',
+                                          ),
+                                          const SizedBox(
+                                            height:
+                                                AppDimensions.defaultSpacing,
+                                          ),
+                                          Text(
+                                            'Здесь будут ваши поездки',
+                                            style: context
+                                                .textExt
+                                                .montserratRegular18,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                         );
                       },
                       orElse: () {

@@ -14,8 +14,8 @@ abstract class AppDimensions {
 
   static const elevatedButtonMinHeight = AppSpacing.space9;
 
-  static const participantCardAvatarRadius = 14.0;
-  static const participantCardHeight = AppSpacing.space7;
+  static const participantCardAvatarRadius = 20.0;
+  static const participantCardHeight = AppSpacing.space8;
   static const participantCardBorderRadius = AppSpacing.space6;
   static const participantCardHorisontalSpacing = AppSpacing.space1;
 

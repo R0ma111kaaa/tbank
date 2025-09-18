@@ -15,9 +15,9 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: AuthRoute.page),
+    AutoRoute(page: AuthRoute.page, initial: true),
     AutoRoute(page: EventListRoute.page),
-    AutoRoute(page: EventDataRoute.page, initial: true),
+    AutoRoute(page: EventDataRoute.page),
     AutoRoute(page: EditEventRoute.page),
   ];
 }

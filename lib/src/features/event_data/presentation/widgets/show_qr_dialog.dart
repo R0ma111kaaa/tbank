@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:tbank/src/common/extensions/context_extensions.dart';
 
 Future<void> showQrDialog(BuildContext context, String text, String label) {
   return showDialog(
@@ -29,11 +30,17 @@ Future<void> showQrDialog(BuildContext context, String text, String label) {
               ElevatedButton(
                 onPressed: () => Navigator.pop(context),
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: context.colorExt.primaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text("Закрыть"),
+                child: Text(
+                  "Закрыть",
+                  style: context.textExt.montserratRegular16.copyWith(
+                    color: context.colorExt.textColor,
+                  ),
+                ),
               ),
             ],
           ),

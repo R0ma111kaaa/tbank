@@ -51,7 +51,7 @@ class SmoothTabSwitcher extends StatelessWidget {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () => onTap,
+                        onTap: onTap,
                         child: Center(
                           child: Text(
                             'Я создатель',
@@ -64,7 +64,7 @@ class SmoothTabSwitcher extends StatelessWidget {
                     ),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () => onTap,
+                        onTap: onTap,
                         child: Center(
                           child: Text(
                             'Я участник',

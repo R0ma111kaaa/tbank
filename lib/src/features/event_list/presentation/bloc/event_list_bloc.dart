@@ -14,6 +14,7 @@ class EventListBloc extends Bloc<EventListEvent, EventListState> {
   EventListBloc({required this.repository}) : super(const Initial()) {
     on<LoadData>(_loadData);
     on<ChangeMenuIndex>(_changeMenuIndex);
+    on<JoinEvent>(_onJoinEvent);
   }
 
   Future<void> _loadData(LoadData event, Emitter<EventListState> emit) async {
@@ -39,6 +40,10 @@ class EventListBloc extends Bloc<EventListEvent, EventListState> {
         loadedState.copyWith(menuIndex: loadedState.menuIndex == 1 ? 0 : 1),
       ),
     );
+  }
+
+  void _onJoinEvent(JoinEvent event, Emitter<EventListState> emit) {
+    repository.joinEvent(event.eventId);
   }
 }
 

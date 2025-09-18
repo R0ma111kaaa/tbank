@@ -9,9 +9,12 @@ class EventDto {
     required this.tripName,
     required this.plannedDate,
     required this.exitDate,
-    required this.participantCount,
-    required this.totalSpent,
-    required this.totalPlanned,
+    this.participantCount = 1,
+    this.totalSpent = 0,
+    this.totalPlanned = 0,
+    this.createdAt,
+    this.updatedAt,
+    this.expense = 0,
   });
 
   @JsonKey(name: 'trip_id')
@@ -34,6 +37,15 @@ class EventDto {
 
   @JsonKey(name: 'total_planned')
   final double totalPlanned;
+
+  @JsonKey(name: 'expense')
+  final double expense;
+
+  @JsonKey(name: 'created_at')
+  final String? createdAt;
+
+  @JsonKey(name: 'updated_at')
+  final String? updatedAt;
 
   factory EventDto.fromJson(Map<String, dynamic> json) =>
       _$EventDtoFromJson(json);

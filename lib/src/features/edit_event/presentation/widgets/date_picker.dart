@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:tbank/src/common/extensions/context_extensions.dart';
 
-class DatePickerWidget extends StatelessWidget {
+class DatePickerWidget extends StatefulWidget {
   final Color primaryColor;
   final Color onPrimaryColor;
   final void Function(DateTime start, DateTime end)? onDatesChanged;
 
-  final ValueNotifier<DateTime> startDate = ValueNotifier(DateTime.now());
-  final ValueNotifier<DateTime> endDate = ValueNotifier(DateTime.now());
-
-  DatePickerWidget({
+  const DatePickerWidget({
     required this.primaryColor,
     required this.onPrimaryColor,
     required this.onDatesChanged,
-
     super.key,
   });
+
+  @override
+  State<DatePickerWidget> createState() => _DatePickerWidgetState();
+}
+
+class _DatePickerWidgetState extends State<DatePickerWidget> {
+  late final ValueNotifier<DateTime> startDate;
+  late final ValueNotifier<DateTime> endDate;
+
+  @override
+  void initState() {
+    super.initState();
+    startDate = ValueNotifier(DateTime.now());
+    endDate = ValueNotifier(DateTime.now());
+  }
 
   Future<void> _pickDate(
     BuildContext context,
@@ -30,12 +41,14 @@ class DatePickerWidget extends StatelessWidget {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: primaryColor, // цвет выделения даты
-              onPrimary: onPrimaryColor, // цвет текста на выделенной дате
-              onSurface: onPrimaryColor, // цвет текста на календаре
+              primary: widget.primaryColor,
+              onPrimary: widget.onPrimaryColor,
+              onSurface: widget.onPrimaryColor,
             ),
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(foregroundColor: onPrimaryColor),
+              style: TextButton.styleFrom(
+                foregroundColor: widget.onPrimaryColor,
+              ),
             ),
           ),
           child: child!,
@@ -45,10 +58,7 @@ class DatePickerWidget extends StatelessWidget {
 
     if (picked != null) {
       notifier.value = picked;
-      // вызываем колбэк с обеими датами
-      if (onDatesChanged != null) {
-        onDatesChanged!(startDate.value, endDate.value);
-      }
+      widget.onDatesChanged?.call(startDate.value, endDate.value);
     }
   }
 

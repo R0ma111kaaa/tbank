@@ -55,12 +55,13 @@ extension EventListEventPatterns on EventListEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadData value)?  loadData,TResult Function( ChangeMenuIndex value)?  changeMenuIndex,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadData value)?  loadData,TResult Function( ChangeMenuIndex value)?  changeMenuIndex,TResult Function( JoinEvent value)?  joinEvent,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case LoadData() when loadData != null:
 return loadData(_that);case ChangeMenuIndex() when changeMenuIndex != null:
-return changeMenuIndex(_that);case _:
+return changeMenuIndex(_that);case JoinEvent() when joinEvent != null:
+return joinEvent(_that);case _:
   return orElse();
 
 }
@@ -78,12 +79,13 @@ return changeMenuIndex(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadData value)  loadData,required TResult Function( ChangeMenuIndex value)  changeMenuIndex,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadData value)  loadData,required TResult Function( ChangeMenuIndex value)  changeMenuIndex,required TResult Function( JoinEvent value)  joinEvent,}){
 final _that = this;
 switch (_that) {
 case LoadData():
 return loadData(_that);case ChangeMenuIndex():
-return changeMenuIndex(_that);case _:
+return changeMenuIndex(_that);case JoinEvent():
+return joinEvent(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -100,12 +102,13 @@ return changeMenuIndex(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadData value)?  loadData,TResult? Function( ChangeMenuIndex value)?  changeMenuIndex,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadData value)?  loadData,TResult? Function( ChangeMenuIndex value)?  changeMenuIndex,TResult? Function( JoinEvent value)?  joinEvent,}){
 final _that = this;
 switch (_that) {
 case LoadData() when loadData != null:
 return loadData(_that);case ChangeMenuIndex() when changeMenuIndex != null:
-return changeMenuIndex(_that);case _:
+return changeMenuIndex(_that);case JoinEvent() when joinEvent != null:
+return joinEvent(_that);case _:
   return null;
 
 }
@@ -122,11 +125,12 @@ return changeMenuIndex(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadData,TResult Function()?  changeMenuIndex,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadData,TResult Function()?  changeMenuIndex,TResult Function( String eventId)?  joinEvent,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LoadData() when loadData != null:
 return loadData();case ChangeMenuIndex() when changeMenuIndex != null:
-return changeMenuIndex();case _:
+return changeMenuIndex();case JoinEvent() when joinEvent != null:
+return joinEvent(_that.eventId);case _:
   return orElse();
 
 }
@@ -144,11 +148,12 @@ return changeMenuIndex();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadData,required TResult Function()  changeMenuIndex,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadData,required TResult Function()  changeMenuIndex,required TResult Function( String eventId)  joinEvent,}) {final _that = this;
 switch (_that) {
 case LoadData():
 return loadData();case ChangeMenuIndex():
-return changeMenuIndex();case _:
+return changeMenuIndex();case JoinEvent():
+return joinEvent(_that.eventId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +170,12 @@ return changeMenuIndex();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadData,TResult? Function()?  changeMenuIndex,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadData,TResult? Function()?  changeMenuIndex,TResult? Function( String eventId)?  joinEvent,}) {final _that = this;
 switch (_that) {
 case LoadData() when loadData != null:
 return loadData();case ChangeMenuIndex() when changeMenuIndex != null:
-return changeMenuIndex();case _:
+return changeMenuIndex();case JoinEvent() when joinEvent != null:
+return joinEvent(_that.eventId);case _:
   return null;
 
 }
@@ -240,6 +246,72 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class JoinEvent implements EventListEvent {
+  const JoinEvent(this.eventId);
+  
+
+ final  String eventId;
+
+/// Create a copy of EventListEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$JoinEventCopyWith<JoinEvent> get copyWith => _$JoinEventCopyWithImpl<JoinEvent>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JoinEvent&&(identical(other.eventId, eventId) || other.eventId == eventId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,eventId);
+
+@override
+String toString() {
+  return 'EventListEvent.joinEvent(eventId: $eventId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $JoinEventCopyWith<$Res> implements $EventListEventCopyWith<$Res> {
+  factory $JoinEventCopyWith(JoinEvent value, $Res Function(JoinEvent) _then) = _$JoinEventCopyWithImpl;
+@useResult
+$Res call({
+ String eventId
+});
+
+
+
+
+}
+/// @nodoc
+class _$JoinEventCopyWithImpl<$Res>
+    implements $JoinEventCopyWith<$Res> {
+  _$JoinEventCopyWithImpl(this._self, this._then);
+
+  final JoinEvent _self;
+  final $Res Function(JoinEvent) _then;
+
+/// Create a copy of EventListEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? eventId = null,}) {
+  return _then(JoinEvent(
+null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$EventListState {
