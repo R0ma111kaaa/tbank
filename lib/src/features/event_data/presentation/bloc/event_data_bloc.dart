@@ -5,6 +5,7 @@ import 'package:tbank/src/features/edit_event/data/dto/request/expense_request_d
 import 'package:tbank/src/features/edit_event/domain/entities/category_response_entity/category_response_entity.dart';
 import 'package:tbank/src/features/edit_event/domain/entities/event/event_entity.dart';
 import 'package:tbank/src/features/edit_event/domain/repositories/event_repository.dart';
+import 'package:tbank/src/features/event_data/presentation/widgets/expense_entity.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/new_expense_entity.dart';
 
 part 'event_data_event.dart';
@@ -20,6 +21,7 @@ class EventDataBloc extends Bloc<EventDataEvent, EventDataState> {
     on<StartAddingExpense>(_onStartAddingExpense);
     on<SendExpense>(_onSendExpence);
     on<ChangeType>(_onChangeType);
+    on<UpdateExpenseEntries>(_onUpdateExpenseEntries);
   }
 
   Future<void> _onLoadData(LoadData event, Emitter<EventDataState> emit) async {
@@ -80,6 +82,7 @@ class EventDataBloc extends Bloc<EventDataEvent, EventDataState> {
               entity: loadedState.categories[0],
             ),
             0,
+            [],
           ),
         );
       },
@@ -92,6 +95,21 @@ class EventDataBloc extends Bloc<EventDataEvent, EventDataState> {
         emit(
           addingExpence.copyWith(
             selectedTypeIndex: addingExpence.selectedTypeIndex == 0 ? 1 : 0,
+          ),
+        );
+      },
+    );
+  }
+
+  void _onUpdateExpenseEntries(
+    UpdateExpenseEntries event,
+    Emitter<EventDataState> emit,
+  ) {
+    state.mapOrNull(
+      addingExpence: (addingExpence) {
+        emit(
+          addingExpence.copyWith(
+            expenseEntries: addingExpence.expenseEntries + [event.newEntry],
           ),
         );
       },

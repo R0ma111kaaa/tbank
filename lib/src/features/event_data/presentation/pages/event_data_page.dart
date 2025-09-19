@@ -8,17 +8,24 @@ import 'package:tbank/src/common/widgets/base_progress_indicator.dart';
 import 'package:tbank/src/common/widgets/base_separator.dart';
 import 'package:tbank/src/common/widgets/participant_card.dart';
 import 'package:tbank/src/common/widgets/primary_text_field.dart';
+import 'package:tbank/src/config/router/router.dart';
 import 'package:tbank/src/config/styles/dimensions.dart';
 import 'package:tbank/src/features/edit_event/domain/entities/event/event_entity.dart';
+import 'package:tbank/src/features/edit_event/domain/repositories/event_repository.dart';
 import 'package:tbank/src/features/edit_event/presentation/pages/edit_event_page.dart';
 import 'package:tbank/src/features/edit_event/presentation/widgets/category_widget.dart';
 import 'package:tbank/src/features/edit_event/presentation/widgets/date_range_view.dart';
 import 'package:tbank/src/features/event_data/presentation/bloc/event_data_bloc.dart';
+import 'package:tbank/src/features/event_data/presentation/widgets/add_expense_dialog.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/category_selector.dart';
+import 'package:tbank/src/features/event_data/presentation/widgets/expense_entity.dart';
+import 'package:tbank/src/features/event_data/presentation/widgets/expense_entry_widget.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/participant_selector.dart';
+import 'package:tbank/src/features/event_data/presentation/widgets/porovnu_widget.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/primary_double_field.dart';
 import 'package:tbank/src/features/event_data/presentation/widgets/show_qr_dialog.dart';
 import 'package:tbank/src/features/event_list/presentation/widgets/smooth_tab_switcher.dart';
+import 'package:tbank/src/features/expenses_widget/expenses_page.dart';
 
 @RoutePage()
 class EventDataPage extends StatelessWidget {
@@ -98,10 +105,13 @@ class EventDataView extends StatelessWidget {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               final category = loadedState.categories[index];
-                              return CategoryWidget(
-                                categoryName: category.categoryName,
-                                totalPlanned: category.totalPlanned,
-                                totalSpent: category.totalSpent,
+                              return GestureDetector(
+                                onTap: () {},
+                                child: CategoryWidget(
+                                  categoryName: category.categoryName,
+                                  totalPlanned: category.totalPlanned,
+                                  totalSpent: category.totalSpent,
+                                ),
                               );
                             },
                             separatorBuilder: (context, index) =>
@@ -109,6 +119,15 @@ class EventDataView extends StatelessWidget {
                                   height: AppDimensions.defaultSpacing / 2,
                                 ),
                             itemCount: loadedState.categories.length,
+                          ),
+                        if (loadedState.categories.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'При нажатии на категорию открывается страница со списком всех трат в категории (В разработке)',
+                              style: context.textExt.montserratRegular16
+                                  .copyWith(color: context.colorExt.textColor),
+                            ),
                           ),
                         if (loadedState.categories.isEmpty)
                           SizedBox(
@@ -229,8 +248,8 @@ class EventDataView extends StatelessWidget {
           return state.maybeMap(
             loaded: (loaded) {
               return SizedBox(
-                width: 60, // ширина
-                height: 60,
+                width: 100, // ширина
+                height: 100,
                 child: FloatingActionButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100), // супер круглый
@@ -332,74 +351,46 @@ class EventDataView extends StatelessWidget {
                                                 if (addingExpenseState
                                                         .selectedTypeIndex ==
                                                     0)
-                                                  Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                          20,
-                                                        ),
-                                                    decoration: BoxDecoration(
-                                                      color: context
-                                                          .colorExt
-                                                          .textColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            16,
+                                                  PorovnuWidget(
+                                                    eventDatabloc:
+                                                        eventDatabloc,
+                                                    addingExpenseState:
+                                                        addingExpenseState,
+                                                  ),
+                                                if (addingExpenseState
+                                                        .selectedTypeIndex ==
+                                                    1)
+                                                  ByPiesesWidget(
+                                                    children: [
+                                                      Text(
+                                                        'Тут будет список трат, создаваемых по кнопке ДОБАВИТЬ ТРАТУ (в разработке)',
+                                                        style: context
+                                                            .textExt
+                                                            .montserratRegular16
+                                                            .copyWith(
+                                                              color: context
+                                                                  .colorExt
+                                                                  .primaryBackgroundColor,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                    onAddPressed: () async {
+                                                      final ExpenseEntry?
+                                                      expenseEntry =
+                                                          await addExpenseDialog(
+                                                            context,
+                                                            addingExpenseState
+                                                                .participants,
+                                                          );
+                                                      if (expenseEntry !=
+                                                          null) {
+                                                        eventDatabloc.add(
+                                                          EventDataEvent.updateExpenseEntries(
+                                                            expenseEntry,
                                                           ),
-                                                    ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        BaseSeparator(
-                                                          text: 'Кто тратил',
-                                                          color: context
-                                                              .colorExt
-                                                              .primaryBackgroundColor,
-                                                        ),
-                                                        ParticipantSelector(
-                                                          participants:
-                                                              addingExpenseState
-                                                                  .participants,
-                                                          isMultiSelect: true,
-                                                          onSelectionChanged: (selected) {
-                                                            eventDatabloc.add(
-                                                              EventDataEvent.updateExpense(
-                                                                addingExpenseState
-                                                                    .newExpenseEntity
-                                                                    .copyWith(
-                                                                      userCount:
-                                                                          selected
-                                                                              .length,
-                                                                    ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                        SizedBox(height: 12),
-                                                        BaseSeparator(
-                                                          text:
-                                                              'По сколько тратили',
-                                                          color: context
-                                                              .colorExt
-                                                              .primaryBackgroundColor,
-                                                        ),
-                                                        PrimaryDoubleField(
-                                                          onChanged: (value) {
-                                                            eventDatabloc.add(
-                                                              EventDataEvent.updateExpense(
-                                                                addingExpenseState
-                                                                    .newExpenseEntity
-                                                                    .copyWith(
-                                                                      spentMoney:
-                                                                          value,
-                                                                    ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
+                                                        );
+                                                      }
+                                                    },
                                                   ),
                                               ],
                                             ),
@@ -464,6 +455,55 @@ class EventDataView extends StatelessWidget {
             orElse: () => const SizedBox.shrink(),
           );
         },
+      ),
+    );
+  }
+}
+
+class ByPiesesWidget extends StatelessWidget {
+  const ByPiesesWidget({
+    super.key,
+    required this.children,
+    required this.onAddPressed,
+  });
+
+  final List<Widget> children;
+  final VoidCallback onAddPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: context.colorExt.textColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ...children,
+          const SizedBox(height: 12),
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(
+                context.colorExt.primaryColor,
+              ),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              ),
+              minimumSize: const WidgetStatePropertyAll(
+                Size(double.infinity, 50),
+              ),
+            ),
+            onPressed: onAddPressed,
+            child: Text(
+              'Добавить трату',
+              style: context.textExt.montserratSemiBold20.copyWith(
+                color: context.colorExt.textColor,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

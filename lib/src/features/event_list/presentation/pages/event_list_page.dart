@@ -12,7 +12,6 @@ import 'package:tbank/src/features/event_list/presentation/widgets/event_card.da
 import 'package:tbank/src/config/constants/constants.dart';
 import 'package:tbank/src/config/router/router.dart';
 import 'package:tbank/src/config/styles/dimensions.dart';
-import 'package:tbank/src/features/auth/domain/repositories/auth_repository.dart';
 import 'package:tbank/src/features/event_list/presentation/bloc/event_list_bloc.dart';
 import 'package:tbank/src/features/event_list/presentation/widgets/qu_code_scanner.dart';
 import 'package:tbank/src/features/event_list/presentation/widgets/smooth_tab_switcher.dart';
@@ -51,17 +50,6 @@ class EventListView extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Запрос на вступление отправлен")),
               );
-            },
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.person,
-              size: AppDimensions.profileIconSize,
-              color: context.colorExt.primaryBackgroundColor,
-            ),
-            onPressed: () {
-              getIt<AuthRepository>().clearTokens();
-              context.router.replaceAll([const AuthRoute()]);
             },
           ),
         ],

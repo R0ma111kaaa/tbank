@@ -9,4 +9,6 @@ class EventDataEvent with _$EventDataEvent {
   const factory EventDataEvent.startAddingExpense() = StartAddingExpense;
   const factory EventDataEvent.sendExpense() = SendExpense;
   const factory EventDataEvent.changeType() = ChangeType;
+  const factory EventDataEvent.updateExpenseEntries(ExpenseEntry newEntry) =
+      UpdateExpenseEntries;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tbank/src/common/widgets/participant_card.dart';
+import 'package:tbank/src/config/styles/dimensions.dart';
 import 'package:tbank/src/features/auth/domain/entities/user/user_entity.dart';
 
 class ParticipantSelector extends StatefulWidget {
@@ -8,19 +9,17 @@ class ParticipantSelector extends StatefulWidget {
     this.initialSelected,
     this.onSelectionChanged,
     this.isMultiSelect = true,
+    this.showUnselectedAsAvatar = false, // новый параметр
     super.key,
   });
 
   final List<UserEntity> participants;
-
-  /// если multiSelect = false → тут можно передать 1 юзера
-  /// если true → список выбранных
   final List<UserEntity>? initialSelected;
-
   final void Function(List<UserEntity>)? onSelectionChanged;
-
-  /// режим: один или несколько участников
   final bool isMultiSelect;
+
+  /// если true, невыбранные показываем как CircleAvatar
+  final bool showUnselectedAsAvatar;
 
   @override
   State<ParticipantSelector> createState() => _ParticipantSelectorState();
@@ -60,13 +59,29 @@ class _ParticipantSelectorState extends State<ParticipantSelector> {
       runSpacing: 8,
       children: widget.participants.map((user) {
         final isSelected = _isSelected(user);
-        return GestureDetector(
-          onTap: () => _toggleSelection(user),
-          child: ParticipantCard(
+
+        Widget child;
+
+        if (isSelected || !widget.showUnselectedAsAvatar) {
+          // выбранный или обычный режим
+          child = ParticipantCard(
             name: '${user.yandexJson.firstName} ${user.yandexJson.lastName}',
             imageProvider: NetworkImage(user.yandexJson.picture),
             isHost: isSelected,
-          ),
+          );
+        } else {
+          // невыбранный + showUnselectedAsAvatar = true
+          child = CircleAvatar(
+            backgroundImage: NetworkImage(user.yandexJson.picture),
+            radius:
+                AppDimensions.participantCardHeight /
+                2, // делаем такой же высоты
+          );
+        }
+
+        return GestureDetector(
+          onTap: () => _toggleSelection(user),
+          child: child,
         );
       }).toList(),
     );
