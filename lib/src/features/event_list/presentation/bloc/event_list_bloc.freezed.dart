@@ -55,11 +55,13 @@ extension EventListEventPatterns on EventListEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadData value)?  loadData,TResult Function( ChangeMenuIndex value)?  changeMenuIndex,TResult Function( JoinEvent value)?  joinEvent,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Started() when started != null:
-return started(_that);case _:
+case LoadData() when loadData != null:
+return loadData(_that);case ChangeMenuIndex() when changeMenuIndex != null:
+return changeMenuIndex(_that);case JoinEvent() when joinEvent != null:
+return joinEvent(_that);case _:
   return orElse();
 
 }
@@ -77,11 +79,13 @@ return started(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadData value)  loadData,required TResult Function( ChangeMenuIndex value)  changeMenuIndex,required TResult Function( JoinEvent value)  joinEvent,}){
 final _that = this;
 switch (_that) {
-case _Started():
-return started(_that);case _:
+case LoadData():
+return loadData(_that);case ChangeMenuIndex():
+return changeMenuIndex(_that);case JoinEvent():
+return joinEvent(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +102,13 @@ return started(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadData value)?  loadData,TResult? Function( ChangeMenuIndex value)?  changeMenuIndex,TResult? Function( JoinEvent value)?  joinEvent,}){
 final _that = this;
 switch (_that) {
-case _Started() when started != null:
-return started(_that);case _:
+case LoadData() when loadData != null:
+return loadData(_that);case ChangeMenuIndex() when changeMenuIndex != null:
+return changeMenuIndex(_that);case JoinEvent() when joinEvent != null:
+return joinEvent(_that);case _:
   return null;
 
 }
@@ -119,10 +125,12 @@ return started(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadData,TResult Function()?  changeMenuIndex,TResult Function( String eventId)?  joinEvent,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Started() when started != null:
-return started();case _:
+case LoadData() when loadData != null:
+return loadData();case ChangeMenuIndex() when changeMenuIndex != null:
+return changeMenuIndex();case JoinEvent() when joinEvent != null:
+return joinEvent(_that.eventId);case _:
   return orElse();
 
 }
@@ -140,10 +148,12 @@ return started();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadData,required TResult Function()  changeMenuIndex,required TResult Function( String eventId)  joinEvent,}) {final _that = this;
 switch (_that) {
-case _Started():
-return started();case _:
+case LoadData():
+return loadData();case ChangeMenuIndex():
+return changeMenuIndex();case JoinEvent():
+return joinEvent(_that.eventId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +170,12 @@ return started();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadData,TResult? Function()?  changeMenuIndex,TResult? Function( String eventId)?  joinEvent,}) {final _that = this;
 switch (_that) {
-case _Started() when started != null:
-return started();case _:
+case LoadData() when loadData != null:
+return loadData();case ChangeMenuIndex() when changeMenuIndex != null:
+return changeMenuIndex();case JoinEvent() when joinEvent != null:
+return joinEvent(_that.eventId);case _:
   return null;
 
 }
@@ -174,8 +186,8 @@ return started();case _:
 /// @nodoc
 
 
-class _Started implements EventListEvent {
-  const _Started();
+class LoadData implements EventListEvent {
+  const LoadData();
   
 
 
@@ -185,7 +197,7 @@ class _Started implements EventListEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Started);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadData);
 }
 
 
@@ -194,7 +206,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'EventListEvent.started()';
+  return 'EventListEvent.loadData()';
 }
 
 
@@ -202,6 +214,104 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class ChangeMenuIndex implements EventListEvent {
+  const ChangeMenuIndex();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChangeMenuIndex);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'EventListEvent.changeMenuIndex()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class JoinEvent implements EventListEvent {
+  const JoinEvent(this.eventId);
+  
+
+ final  String eventId;
+
+/// Create a copy of EventListEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$JoinEventCopyWith<JoinEvent> get copyWith => _$JoinEventCopyWithImpl<JoinEvent>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JoinEvent&&(identical(other.eventId, eventId) || other.eventId == eventId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,eventId);
+
+@override
+String toString() {
+  return 'EventListEvent.joinEvent(eventId: $eventId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $JoinEventCopyWith<$Res> implements $EventListEventCopyWith<$Res> {
+  factory $JoinEventCopyWith(JoinEvent value, $Res Function(JoinEvent) _then) = _$JoinEventCopyWithImpl;
+@useResult
+$Res call({
+ String eventId
+});
+
+
+
+
+}
+/// @nodoc
+class _$JoinEventCopyWithImpl<$Res>
+    implements $JoinEventCopyWith<$Res> {
+  _$JoinEventCopyWithImpl(this._self, this._then);
+
+  final JoinEvent _self;
+  final $Res Function(JoinEvent) _then;
+
+/// Create a copy of EventListEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? eventId = null,}) {
+  return _then(JoinEvent(
+null == eventId ? _self.eventId : eventId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$EventListState {
@@ -247,11 +357,14 @@ extension EventListStatePatterns on EventListState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Loaded value)?  loaded,TResult Function( Error value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _:
+case Initial() when initial != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Loaded() when loaded != null:
+return loaded(_that);case Error() when error != null:
+return error(_that);case _:
   return orElse();
 
 }
@@ -269,11 +382,14 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Loaded value)  loaded,required TResult Function( Error value)  error,}){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _:
+case Initial():
+return initial(_that);case Loading():
+return loading(_that);case Loaded():
+return loaded(_that);case Error():
+return error(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -290,11 +406,14 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Loaded value)?  loaded,TResult? Function( Error value)?  error,}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _:
+case Initial() when initial != null:
+return initial(_that);case Loading() when loading != null:
+return loading(_that);case Loaded() when loaded != null:
+return loaded(_that);case Error() when error != null:
+return error(_that);case _:
   return null;
 
 }
@@ -311,10 +430,13 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( Map<String, List<EventEntity>> ownedEvents,  Map<String, List<EventEntity>> participantingEvents,  int menuIndex)?  loaded,TResult Function()?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _:
+case Initial() when initial != null:
+return initial();case Loading() when loading != null:
+return loading();case Loaded() when loaded != null:
+return loaded(_that.ownedEvents,_that.participantingEvents,_that.menuIndex);case Error() when error != null:
+return error();case _:
   return orElse();
 
 }
@@ -332,10 +454,13 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( Map<String, List<EventEntity>> ownedEvents,  Map<String, List<EventEntity>> participantingEvents,  int menuIndex)  loaded,required TResult Function()  error,}) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _:
+case Initial():
+return initial();case Loading():
+return loading();case Loaded():
+return loaded(_that.ownedEvents,_that.participantingEvents,_that.menuIndex);case Error():
+return error();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -352,10 +477,13 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( Map<String, List<EventEntity>> ownedEvents,  Map<String, List<EventEntity>> participantingEvents,  int menuIndex)?  loaded,TResult? Function()?  error,}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _:
+case Initial() when initial != null:
+return initial();case Loading() when loading != null:
+return loading();case Loaded() when loaded != null:
+return loaded(_that.ownedEvents,_that.participantingEvents,_that.menuIndex);case Error() when error != null:
+return error();case _:
   return null;
 
 }
@@ -366,8 +494,8 @@ return initial();case _:
 /// @nodoc
 
 
-class _Initial implements EventListState {
-  const _Initial();
+class Initial implements EventListState {
+  const Initial();
   
 
 
@@ -377,7 +505,7 @@ class _Initial implements EventListState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
 }
 
 
@@ -387,6 +515,152 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'EventListState.initial()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Loading implements EventListState {
+  const Loading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'EventListState.loading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Loaded implements EventListState {
+  const Loaded(final  Map<String, List<EventEntity>> ownedEvents, final  Map<String, List<EventEntity>> participantingEvents, this.menuIndex): _ownedEvents = ownedEvents,_participantingEvents = participantingEvents;
+  
+
+ final  Map<String, List<EventEntity>> _ownedEvents;
+ Map<String, List<EventEntity>> get ownedEvents {
+  if (_ownedEvents is EqualUnmodifiableMapView) return _ownedEvents;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_ownedEvents);
+}
+
+ final  Map<String, List<EventEntity>> _participantingEvents;
+ Map<String, List<EventEntity>> get participantingEvents {
+  if (_participantingEvents is EqualUnmodifiableMapView) return _participantingEvents;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_participantingEvents);
+}
+
+ final  int menuIndex;
+
+/// Create a copy of EventListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&const DeepCollectionEquality().equals(other._ownedEvents, _ownedEvents)&&const DeepCollectionEquality().equals(other._participantingEvents, _participantingEvents)&&(identical(other.menuIndex, menuIndex) || other.menuIndex == menuIndex));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_ownedEvents),const DeepCollectionEquality().hash(_participantingEvents),menuIndex);
+
+@override
+String toString() {
+  return 'EventListState.loaded(ownedEvents: $ownedEvents, participantingEvents: $participantingEvents, menuIndex: $menuIndex)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoadedCopyWith<$Res> implements $EventListStateCopyWith<$Res> {
+  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
+@useResult
+$Res call({
+ Map<String, List<EventEntity>> ownedEvents, Map<String, List<EventEntity>> participantingEvents, int menuIndex
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoadedCopyWithImpl<$Res>
+    implements $LoadedCopyWith<$Res> {
+  _$LoadedCopyWithImpl(this._self, this._then);
+
+  final Loaded _self;
+  final $Res Function(Loaded) _then;
+
+/// Create a copy of EventListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? ownedEvents = null,Object? participantingEvents = null,Object? menuIndex = null,}) {
+  return _then(Loaded(
+null == ownedEvents ? _self._ownedEvents : ownedEvents // ignore: cast_nullable_to_non_nullable
+as Map<String, List<EventEntity>>,null == participantingEvents ? _self._participantingEvents : participantingEvents // ignore: cast_nullable_to_non_nullable
+as Map<String, List<EventEntity>>,null == menuIndex ? _self.menuIndex : menuIndex // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class Error implements EventListState {
+  const Error();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Error);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'EventListState.error()';
 }
 
 

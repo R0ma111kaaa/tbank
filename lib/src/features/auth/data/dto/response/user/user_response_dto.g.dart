@@ -10,7 +10,7 @@ UserResponseDto _$UserResponseDtoFromJson(Map<String, dynamic> json) =>
     UserResponseDto(
       id: json['id'] as String?,
       yandexId: json['yandex_id'] as String?,
-      yandexJson: json['yandex_json'] as Map<String, dynamic>?,
+      yandexJson: json['yandex_json'],
     );
 
 Map<String, dynamic> _$UserResponseDtoToJson(UserResponseDto instance) =>

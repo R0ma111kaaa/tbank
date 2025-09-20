@@ -5,6 +5,7 @@ import 'package:tbank/src/features/auth/data/datasources/api/auth_api.dart';
 import 'package:tbank/src/features/auth/data/datasources/auth_datasource.dart';
 import 'package:tbank/src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:tbank/src/features/auth/domain/repositories/auth_repository.dart';
+import 'package:tbank/src/features/auth/presentation/bloc/auth_bloc.dart';
 
 void registerAuthModule(GetIt getIt) {
   getIt.registerLazySingleton<AuthApi>(() => AuthApi(getIt<Dio>()));
@@ -18,5 +19,9 @@ void registerAuthModule(GetIt getIt) {
       secureStorage: getIt<FlutterSecureStorage>(),
       dataSource: getIt<AuthDatasource>(),
     ),
+  );
+
+  getIt.registerFactory<AuthBloc>(
+    () => AuthBloc(repository: getIt<AuthRepository>()),
   );
 }

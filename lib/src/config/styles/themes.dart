@@ -12,19 +12,24 @@ abstract class AppThemes {
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.whiteTBank,
     appBarTheme: AppBarTheme(
-      centerTitle: true,
+      centerTitle: false,
       titleTextStyle: AppTypography.montserratExtraBold20.copyWith(
-        color: AppColors.blackTBank,
+        color: AppColors.whiteTBank,
       ),
       elevation: 0,
       scrolledUnderElevation: 0,
-      backgroundColor: AppColors.whiteTBank,
+      backgroundColor: AppColors.blackTBank,
     ),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: AppTypography.montserratSemiBold16.copyWith(
         color: AppColors.yellowTBank,
       ),
       activeIndicatorBorder: BorderSide.none,
+    ),
+    elevatedButtonTheme: const ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(AppColors.blackTBank),
+      ),
     ),
   );
 }
